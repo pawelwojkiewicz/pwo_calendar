@@ -1,7 +1,10 @@
 <template>
     <div>
         a tutaj mamy Calendar
-        <router-link to="/">Wyloguj się</router-link>
+        <button class="btn">
+             <router-link to="/">Wyloguj się</router-link>
+        </button> 
+       
     </div>
 </template>
 
@@ -12,5 +15,10 @@
 </script>
 
 <style lang="scss" scoped>
-
+    .btn {
+        background: black;
+       a {
+           color: #fff;
+       }
+    }
 </style>
