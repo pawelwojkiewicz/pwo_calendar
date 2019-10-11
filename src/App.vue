@@ -1,6 +1,11 @@
 <template>
   <div id="app">
+     <transition
+        name="fade"
+        mode="out-in"
+      >
     <router-view/>
+    </transition>
   </div>
 </template>
 
@@ -11,22 +16,58 @@
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700&display=swap');
+
+body {
+  background: #464646;
+  color: #fff;
+   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    background: red;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
 }
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
+}
+
+input,
+button {
+   font-family: 'Montserrat', sans-serif;
+   color: #fff;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid #464646;
+  -webkit-text-fill-color: #fff;
+  -webkit-box-shadow: 0 0 0px 1000px #464646 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+
 </style>
