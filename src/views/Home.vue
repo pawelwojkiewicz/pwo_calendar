@@ -1,16 +1,13 @@
 <template>
     <div>
         a tutaj mamy Calendar
-        <button class="btn">
-             <router-link to="/">Wyloguj się</router-link>
-        </button> 
-       
+        <router-link to="/login">Wyloguj się</router-link>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'Calendar'
+        name: 'Home'
     }
 </script>
 
