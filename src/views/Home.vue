@@ -12,10 +12,5 @@
 </script>
 
 <style lang="scss" scoped>
-    .btn {
-        background: black;
-       a {
-           color: #fff;
-       }
-    }
+    
 </style>

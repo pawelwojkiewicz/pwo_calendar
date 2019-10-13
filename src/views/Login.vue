@@ -25,22 +25,26 @@
         </Form>
         </slot>
         </Container>
+        <Footer></Footer>
        </div>
+       
 </template>
 
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
-import Logo from '../components/Logo.vue';
+import Logo from '@/components/Logo.vue';
 import Form from '@/components/Form.vue';
 import Button from '@/components/Button.vue';
 import Container from '@/components/Container.vue';
+import Footer from '@/components/Footer.vue';
     export default {
          name: 'Login',
          components: {
             Logo,
             Form,
             Button,
-            Container
+            Container,
+            Footer
          },
          computed: {
              ...mapState([
