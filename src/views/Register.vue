@@ -3,32 +3,27 @@
          <Container class="register__container">
              <slot>
         <Logo class="logo--big"></Logo>
-        <Form>
+        <Form >
             <slot>
                 <div class="form__group">
                     <font-awesome-icon class="form__icon" icon="user" />
-                    <input type="text" class="form__input" :placeholder="pl.userPlaceholder" required >
-                     <span class="form__error register__form-error">{{pl.requiredUser}}</span>
-                     <span class="form__error register__form-error">{{pl.invalidUser}}</span>
-                </div>
-                <div class="form__group">
-                    <font-awesome-icon class="form__icon" icon="envelope" />
-                    <input type="email" class="form__input" :placeholder="pl.email" required >
-                    <span class="form__error register__form-error">{{pl.requiredEmail}}</span>
+                    <input type="text" class="form__input" autocomplete="new-password"  v-model="user.username" :placeholder="pl.userPlaceholder" required >
+                     <span class="form__error register__form-error" v-show="invalidInput.username">{{pl.requiredUser}}</span>
+                     <span class="form__error register__form-error" v-show="invalidInput.sameusername">{{pl.invalidUser}}</span>
                 </div>
                  <div class="form__group">
                     <font-awesome-icon class="form__icon" icon="lock" />
-                    <input type="password" class="form__input" :placeholder="pl.passwordPlaceholder" required >
-                    <span class="form__error register__form-error">{{pl.requiredPassword}}</span>
+                    <input type="password" class="form__input" autocomplete="new-password" v-model="user.password"  :placeholder="pl.passwordPlaceholder" required >
+                    <span class="form__error register__form-error" v-show="invalidInput.password">{{pl.requiredPassword}}</span>
                 </div>
                  <div class="form__group">
                     <font-awesome-icon class="form__icon" icon="lock" />
-                    <input type="password" class="form__input" :placeholder="pl.repeatPasswordPlaceholder" required >
-                    <span class="form__error register__form-error">{{pl.requiredRePassword}}</span>
-                     <span class="form__error register__form-error">{{pl.invalidPassword}}</span>
+                    <input type="password" class="form__input" autocomplete="new-password" v-model="user.repassword"  :placeholder="pl.repeatPasswordPlaceholder" required >
+                    <span class="form__error register__form-error" v-show="invalidInput.repassword && !invalidInput.differentpasswords ">{{pl.requiredRePassword}}</span>
+                     <span class="form__error register__form-error" v-show="invalidInput.differentpasswords">{{pl.invalidPassword}}</span>
                 </div>
                     
-                              <router-link class="register__form-btn btn btn--wide" tag="button" to="/"> {{pl.register}} </router-link> 
+                              <router-link @click.native="register" class="register__form-btn btn btn--wide" tag="button" to="" replace > {{pl.register}} </router-link> 
                      
                      <div class="form__bottom">
                         <span class="form__bottom-text">
@@ -61,9 +56,18 @@ import Footer from '@/components/Footer.vue';
          },
          computed: {
              ...mapState([
-                 'pl'
+                 'pl',
+                 'invalidInput',
+                 'user'
              ])
-         }
+         },
+         methods: {
+           register() {
+              this.$store.dispatch('register');
+            //    this.$router.replace('login')
+             
+           }
+         },
     }
 </script>
 
