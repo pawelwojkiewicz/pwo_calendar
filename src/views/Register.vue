@@ -8,21 +8,40 @@
                 <div class="form__group">
                     <font-awesome-icon class="form__icon" icon="user" />
                     <input type="text" class="form__input" autocomplete="new-password"  v-model="user.username" :placeholder="pl.userPlaceholder" required >
-                     <span class="form__error register__form-error" v-show="invalidInput.username">{{pl.requiredUser}}</span>
-                     <span class="form__error register__form-error" v-show="invalidInput.sameusername">{{pl.invalidUser}}</span>
+                    <FormError v-show="invalidInput.username">
+                        <slot>
+                            {{pl.requiredUser}}
+                         </slot>
+                    </FormError>
+                    <FormError v-show="invalidInput.sameusername">
+                        <slot>
+                            {{pl.invalidUser}}
+                        </slot>
+                    </FormError>
                 </div>
                  <div class="form__group">
                     <font-awesome-icon class="form__icon" icon="lock" />
                     <input type="password" class="form__input" autocomplete="new-password" v-model="user.password"  :placeholder="pl.passwordPlaceholder" required >
-                    <span class="form__error register__form-error" v-show="invalidInput.password">{{pl.requiredPassword}}</span>
+                    <FormError v-show="invalidInput.password">
+                        <slot>
+                            {{pl.requiredPassword}}
+                        </slot>
+                    </FormError>
                 </div>
                  <div class="form__group">
                     <font-awesome-icon class="form__icon" icon="lock" />
                     <input type="password" class="form__input" autocomplete="new-password" v-model="user.repassword"  :placeholder="pl.repeatPasswordPlaceholder" required >
-                    <span class="form__error register__form-error" v-show="invalidInput.repassword && !invalidInput.differentpasswords ">{{pl.requiredRePassword}}</span>
-                     <span class="form__error register__form-error" v-show="invalidInput.differentpasswords">{{pl.invalidPassword}}</span>
+                     <FormError v-show="invalidInput.repassword && !invalidInput.differentpasswords">
+                        <slot>
+                            {{pl.requiredRePassword}}
+                        </slot>
+                    </FormError>
+                    <FormError v-show="invalidInput.differentpasswords">
+                        <slot>
+                            {{pl.invalidPassword}}
+                        </slot>
+                    </FormError>
                 </div>
-                    
                               <router-link @click.native="register" class="register__form-btn btn btn--wide" tag="button" to="" replace > {{pl.register}} </router-link> 
                      
                      <div class="form__bottom">
@@ -45,6 +64,7 @@ import Form from '@/components/Form.vue';
 import Button from '@/components/Button.vue';
 import Container from '@/components/Container.vue';
 import Footer from '@/components/Footer.vue';
+import FormError from '@/components/FormError.vue';
     export default {
         name: 'Register',
         components: {
@@ -52,7 +72,8 @@ import Footer from '@/components/Footer.vue';
             Form,
             Button,
             Container,
-            Footer
+            Footer,
+            FormError
          },
          computed: {
              ...mapState([
@@ -62,12 +83,14 @@ import Footer from '@/components/Footer.vue';
              ])
          },
          methods: {
-           register() {
-              this.$store.dispatch('register');
-            //    this.$router.replace('login')
-             
-           }
+              ...mapActions([
+                 'register',
+                 'getUsers'
+             ])
          },
+         created() {
+             this.getUsers();
+         }
     }
 </script>
 
