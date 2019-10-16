@@ -12,19 +12,36 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 library.add(faUser, faEnvelope, faLock, faGithub);
-Vue.use(VueResource, PasswordHash, VueI18n);
+
+Vue.use(VueI18n, VueResource, PasswordHash);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 
+
+
+const messages = {
+    en: {
+        message: {
+            hello: 'hello world'
+        }
+    },
+    ja: {
+        message: {
+            hello: 'こんにちは、世界'
+        }
+    }
+}
+
+const i18n = new VueI18n({
+    locale: 'ja', // set locale
+    messages, // set locale messages
+})
+
 new Vue({
+    i18n,
     router,
     store,
     render: h => h(App),
 }).$mount('#app');
-
-
-
-
-
