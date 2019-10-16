@@ -1,6 +1,7 @@
 <template>
     <transition name="alert-fade" mode="out-in">
     <div class="alert">
+        <Logo class="logo--small"></Logo>
         <span class="alert__text">
             <slot></slot>
         </span>
@@ -9,13 +10,19 @@
 </template>
 
 <script>
+import Logo from '@/components/Logo.vue';
     export default {
-        name: 'Alert'
+        name: 'Alert',
+        components: {
+            Logo
+        }
     }
 </script>
 
 <style lang="scss">
  .alert {
+     display: flex;
+     align-items: center;
      width: 100%;
      text-align: center;
     background:#d4edda;
@@ -26,9 +33,11 @@
      left: 50%;
      font-size: 14px;
     transform: translateX(-50%);
-    top: 0;
+    top: 7px;
+    padding: 20px;
+    border-radius: 13px;
     &__text {
-        padding: 20px;
+     
         display: block;
         color: #155724;
         }
@@ -43,7 +52,7 @@
 
 .alert-fade-enter,
 .alert-fade-leave-active {
-    top: -50px;
+    top: -100px;
 }
 
 @media screen and (min-width: 768px) {

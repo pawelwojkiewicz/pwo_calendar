@@ -1,10 +1,12 @@
 import Vue from 'vue';
+import VueResource from 'vue-resource'
 import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 
-Vue.use(Router);
+Vue.use(Router,VueResource);
+const router = new Router({})
 
 export default new Router({
     mode: 'history',
@@ -30,3 +32,5 @@ export default new Router({
     ],
     
 });
+
+

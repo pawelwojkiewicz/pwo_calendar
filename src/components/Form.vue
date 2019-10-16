@@ -19,11 +19,7 @@
         &__group {
             position: relative;
             width: 100%;
-            border-bottom: 1px solid #3a3a3a;
             margin: 10px 0;
-            &:focus {
-                border-bottom: 2px solid #21a5b6;
-            }
         }
         &__icon {
             position: absolute;
@@ -37,10 +33,13 @@
             width: 100%;
             background: transparent;
             border: none;
+               border-bottom: 1px solid #3a3a3a;
             padding: 10px 0;
             text-align: center;
+            transition: .3s;
             &:focus {
                 outline: none;
+                border-bottom: 1px solid #21a5b6;
             }
             &::placeholder {
                 font-size: 18px;

@@ -47,7 +47,7 @@
                      <div class="form__bottom">
                         <span class="form__bottom-text">
                         {{pl.loginText}}
-                        <router-link to="/login" class="form__bottom-link"> {{pl.logIn}} </router-link>  
+                        <router-link @click.native="clearInputs" to="/login" class="form__bottom-link"> {{pl.logIn}} </router-link>  
                         </span>
                     </div>
             </slot>
@@ -58,6 +58,7 @@
     </div>
 </template>
 <script>
+
 import { mapMutations, mapState, mapActions } from 'vuex';
 import Logo from '../components/Logo.vue';
 import Form from '@/components/Form.vue';
@@ -83,14 +84,15 @@ import FormError from '@/components/FormError.vue';
              ])
          },
          methods: {
+              ...mapMutations([
+                 'clearInputs'
+             ]),
               ...mapActions([
                  'register',
                  'getUsers'
-             ])
+             ]),
+             
          },
-         created() {
-             this.getUsers();
-         }
     }
 </script>
 

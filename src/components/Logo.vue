@@ -16,6 +16,10 @@
             width: 80px;
             margin-bottom: 10px;
         }
+        &--small {
+            width:30px;
+            margin-right: 5px;
+        }
         &__img {
             max-width: 100%;
             max-height: 100%;

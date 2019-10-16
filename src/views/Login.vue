@@ -5,6 +5,11 @@
                   {{pl.alertRegistration}}
               </slot>
           </Alert>
+          <Alert v-show="logoutComplete">
+              <slot>
+                  {{pl.alertLogout}}
+              </slot>
+          </Alert>
       <Container class="login__container">
             <slot>
                 <Logo class="login__logo logo--big"></Logo>
@@ -26,6 +31,7 @@
                         <router-link @click.native="login" class="login__form-btn btn btn--wide" tag="button" to="/login"> {{pl.logIn}} </router-link> 
                         <div class="form__bottom">
                             <span class="form__bottom-text">
+                                   <p>{{ $t("message.hello") }}</p>
                                 {{pl.registerText}}
                                 <router-link @click.native="clearInputs" to="/register" class="form__bottom-link"> {{pl.register}} </router-link>  
                             </span>
@@ -34,6 +40,7 @@
                 </Form>
             </slot>
         </Container>
+     
         <Footer></Footer>
        </div>
 </template>
@@ -63,21 +70,19 @@ import FormError from '@/components/FormError.vue';
                  'pl',
                  'user',
                  'registrationComplete',
-                 'loginFail'
+                 'loginFail',
+                 'logoutComplete'
              ])
          },
          methods : {
               ...mapMutations([
                  'clearInputs',
-                 'login'
              ]),
              ...mapActions([
-                 'getUsers'
+                 'getUsers',
+                 'login'
              ])
          },
-         created() {
-             this.getUsers();
-         }
     }
 </script>
 

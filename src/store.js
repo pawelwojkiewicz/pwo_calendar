@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import router from './router'
-import { faSleigh } from '@fortawesome/free-solid-svg-icons';
+import PasswordHash from 'password-hash';
 
-Vue.use(Vuex);
+Vue.use(Vuex, PasswordHash);
 
 export default new Vuex.Store({
   state: {
@@ -24,7 +24,9 @@ export default new Vuex.Store({
       requiredPassword: 'hasło jest wymagane',
       requiredRePassword: 'ponowne hasło jest wymagane',
       invalidPassword: 'hasła nie są takie same',
-      alertRegistration : 'Rejestracja przebiegła pomyślnie! Możesz się zalogować!'
+      alertRegistration : 'Rejestracja przebiegła pomyślnie! Możesz się zalogować!',
+      alertLogout : 'Wylogowano pomyślnie!',
+      alertLogin : 'Zalogowano pomyślnie! Witaj,' 
     },
     //Form Validation
     invalidInput: {
@@ -34,79 +36,152 @@ export default new Vuex.Store({
       differentpasswords: false,
       sameusername: false,
     },
+    //V-model
     user : {
       username: '',
       password: '',
       repassword: '',
     },
+    //Registered Users
     users: [],
+
+    //LogIn and LogOut Alerts
     registrationComplete: false,
+    loginComplete: false,
     loginFail: false,
+    logoutComplete: false,
+
+    //Logged Username
     loggedUsername: ''
 
   },
   mutations: {
-    register: (state) => {
+    //Registration
+    validateUser: (state) => {
       state.invalidInput.username = (state.user.username === '');
       state.invalidInput.password = (state.user.password === '');
       state.invalidInput.repassword = (state.user.repassword === '');
       state.invalidInput.differentpasswords = (state.user.repassword !== state.user.password)
-      let sameUserName = false;
-      if(state.users !== null) {
-        Object.keys(state.users).forEach(key => {
-          if(state.users[key].username === state.user.username) sameUserName = true;
-       }) 
-       state.invalidInput.sameusername = sameUserName;
-      }
     },
-    login: (state) => {
-      if(state.users === null) {
-        return;
-      } else {
-        Object.keys(state.users).forEach(key => {
-          if(state.user.username === state.users[key].username && state.user.password === state.users[key].password ) {
-            router.push({ path: '/' })
-            state.loginFail = false;
-          } else {
-            state.loginFail = true;
-          } 
-        })
-      } 
+    sameusername(state,value){
+      state.invalidInput.sameusername = value
     },
-    logout: (state) => {
+    setPassword(state,password) {
+      state.user.password = password
+      state.user.repassword = password
+    },
+    clearLoginForm(state) {
+      state.user.username = '';
+      state.user.password = '';
       state.loginFail = false;
     },
+    registrationComplete(state,value) {
+      state.registrationComplete = value;
+    },
+
+    //Login
+    loginFail(state,value) {
+      state.loginFail = value;
+    },
+    loginComplete(state,value) {
+      state.loginComplete = value;
+    },
+
+
+    //Logout
+    logoutCompleteAlert(state,value) {
+      state.logoutComplete = value;
+    },
+    logoutComplete(state) {
+      state.loginFail = false;
+      state.user.username = '';
+      state.user.password = '';
+      state.logoutComplete = true;
+    },
+
+    //Clear Inputs
     clearInputs: (state) => {
       state.user.username = '';
       state.user.password = '';
       state.user.repassword = '';
-    }
+      state.invalidInput.username = false;
+      state.invalidInput.password = false;
+      state.invalidInput.repassword = false;
+      state.loginFail = false
+    },
   },
+
   actions: {
-    register (context) {
-        context.commit('register');
-        if(!context.state.invalidInput.username 
-          && !context.state.invalidInput.password 
-          && !context.state.invalidInput.repassword 
-          && !context.state.invalidInput.differentpasswords
-          && !context.state.invalidInput.sameusername) {
-            Vue.http.patch(`https://pwo-calendar.firebaseio.com/users/${context.state.user.username}.json`, context.state.user).then(function (data) { 
+    //Register
+    register ({state,commit}) {
+        commit('validateUser');
+        if(state.users === null || state.user.username === '' || state.user.username === null) {
+          return;
+        }
+        Vue.http.get(`https://pwo-calendar.firebaseio.com/users/${state.user.username}.json`).then(data => data.json()).then((data) => {
+          if(data !== null) {
+            commit('sameusername', true)
+            return;
+          } else {
+            commit('sameusername', false)
+          }
+        });
+        if(!state.invalidInput.username 
+          && !state.invalidInput.password 
+          && !state.invalidInput.repassword 
+          && !state.invalidInput.differentpasswords
+          && !state.invalidInput.sameusername) {
+            let passwordHash = require('password-hash');
+            let hashedPassword = passwordHash.generate(`${state.user.password}`);
+            commit('setPassword', hashedPassword)
+            Vue.http.patch(`https://pwo-calendar.firebaseio.com/users/${state.user.username}.json`, state.user).then(function (data) { 
               });
           router.push({ path: 'login' })
-          context.state.user.username = '';
-          context.state.user.password = '';
-          context.state.loginFail = false;
-          context.state.registrationComplete = true;
+         commit('clearLoginForm');
+         commit('registrationComplete', true)
           setTimeout(function(){
-            context.state.registrationComplete = false;
+            commit('registrationComplete', false)
           }, 2500);
         
         }
     },
-    getUsers (context) {
-      Vue.http.get(`https://pwo-calendar.firebaseio.com/users.json`).then(data => data.json()).then((data) => {
-        context.state.users = data;
+
+    //Login
+    login({state,commit,dispatch}) {
+      if(state.users === null || state.user.username === '' || state.user.username === null) {
+        commit('loginFail', true);
+        return;
+      } else {
+        Vue.http.get(`https://pwo-calendar.firebaseio.com/users/${state.user.username}.json`).then(data => data.json()).then((data) => {
+          if(data === null) {
+            commit('loginFail', true);
+            return;
+          }
+          state.users = data;
+            let passwordHash = require('password-hash');
+            if(state.user.username === state.users.username && passwordHash.verify(`${state.user.password}`,  state.users.password) ) {
+              router.push({ path: '/' })
+              dispatch('loginCompleteAlert')
+            } else {
+              commit('loginFail', true);
+            } 
       });
+      } 
+    },
+     //Login Complete Alert
+    loginCompleteAlert({commit}) {
+      commit('loginComplete', true);
+              setTimeout(function(){
+                commit('loginComplete', false);
+              }, 2500);
+    },
+    //Logout Complete
+    logoutComplete({commit}) {
+      commit('logoutCompleteAlert', true);
+      commit('logoutComplete');
+              setTimeout(function(){
+                commit('logoutCompleteAlert', false);
+              }, 2500);
     }
   },
 });
