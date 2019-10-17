@@ -9,7 +9,6 @@
 <script>
 
 
-
 </script>
 
 <style lang="scss">
@@ -24,6 +23,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 18px;
   margin: 0;
+  overflow-x: hidden;
   padding: 0;
   box-sizing: border-box;
 }
@@ -52,7 +52,7 @@ a {
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,

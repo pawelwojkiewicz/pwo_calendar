@@ -3,7 +3,7 @@
          <LangChanger></LangChanger>
          <Container class="register__container">
              <slot>
-        <Logo class="logo--big"></Logo>           
+        <Logo class="logo--big"></Logo>
         <Form >
             <slot>
                 <div class="form__group">
@@ -43,12 +43,12 @@
                         </slot>
                     </FormError>
                 </div>
-                              <router-link @click.native="register" class="register__form-btn btn btn--wide" tag="button" to="" replace >  {{$t("register")}} </router-link> 
-                     
+                              <router-link @click.native="register" class="register__form-btn btn btn--wide" tag="button" to="" replace >  {{$t("register")}} </router-link>
+
                      <div class="form__bottom">
                         <span class="form__bottom-text">
                               {{$t("loginText")}}
-                        <router-link @click.native="clearInputs" to="/login" class="form__bottom-link">{{$t("logIn")}}</router-link>  
+                        <router-link @click.native="clearInputs" to="/login" class="form__bottom-link">{{$t("logIn")}}</router-link>
                         </span>
                     </div>
             </slot>
@@ -68,35 +68,36 @@ import Container from '@/components/Container.vue';
 import Footer from '@/components/Footer.vue';
 import FormError from '@/components/FormError.vue';
 import LangChanger from '@/components/LangChanger.vue';
-    export default {
-        name: 'Register',
-        components: {
-            Logo,
-            Form,
-            Button,
-            Container,
-            Footer,
-            FormError,
-            LangChanger
-         },
-         computed: {
-             ...mapState([
-                 'pl',
-                 'invalidInput',
-                 'user'
-             ])
-         },
-         methods: {
-              ...mapMutations([
-                 'clearInputs'
-             ]),
-              ...mapActions([
-                 'register',
-                 'getUsers'
-             ]),
-             
-         },
-    }
+
+export default {
+  name: 'Register',
+  components: {
+    Logo,
+    Form,
+    Button,
+    Container,
+    Footer,
+    FormError,
+    LangChanger,
+  },
+  computed: {
+    ...mapState([
+      'pl',
+      'invalidInput',
+      'user',
+    ]),
+  },
+  methods: {
+    ...mapMutations([
+      'clearInputs',
+    ]),
+    ...mapActions([
+      'register',
+      'getUsers',
+    ]),
+
+  },
+};
 </script>
 
 <style lang="scss" scoped>

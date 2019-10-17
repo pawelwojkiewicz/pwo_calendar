@@ -17,5 +17,7 @@
   "invalidPassword":"passwords are not the same",
   "alertRegistration":"Registration was successful! You can login!",
   "alertLogout":"Logged off successfully!",
-  "alertLogin":"Signed in successfully! Hello, "
+  "alertLogin":"Signed in successfully! Hello, ",
+  "nextMonth" : "Next month",
+  "prevMonth" : "Previous month"
 }

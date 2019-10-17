@@ -29,11 +29,11 @@
                                 </slot>
                             </FormError>
                         </div>
-                        <router-link @click.native="login" class="login__form-btn btn btn--wide" tag="button" to="/login"> {{$t("logIn")}} </router-link> 
+                        <router-link @click.native="login" class="login__form-btn btn btn--wide" tag="button" to="/login"> {{$t("logIn")}} </router-link>
                         <div class="form__bottom">
                             <span class="form__bottom-text">
                             {{$t("registerText")}}
-                                <router-link @click.native="clearInputs" to="/register" class="form__bottom-link">{{$t("register")}}</router-link>  
+                                <router-link @click.native="clearInputs" to="/register" class="form__bottom-link">{{$t("register")}}</router-link>
                             </span>
                         </div>
                     </slot>
@@ -54,38 +54,39 @@ import Footer from '@/components/Footer.vue';
 import Alert from '@/components/Alert.vue';
 import FormError from '@/components/FormError.vue';
 import LangChanger from '@/components/LangChanger.vue';
-    export default {
-       
-         name: 'Login',
-         components: {
-            Logo,
-            Form,
-            Button,
-            Container,
-            Footer,
-            Alert,
-            FormError,
-            LangChanger
-         },
-         computed: {
-             ...mapState([
-                 'user',
-                 'registrationComplete',
-                 'loginFail',
-                 'logoutComplete'
-             ])
-         },
-         methods : {
-              ...mapMutations([
-                 'clearInputs',
-             ]),
-             ...mapActions([
-                 'getUsers',
-                 'login'
-             ])
-         },
-        
-    }
+
+export default {
+
+  name: 'Login',
+  components: {
+    Logo,
+    Form,
+    Button,
+    Container,
+    Footer,
+    Alert,
+    FormError,
+    LangChanger,
+  },
+  computed: {
+    ...mapState([
+      'user',
+      'registrationComplete',
+      'loginFail',
+      'logoutComplete',
+    ]),
+  },
+  methods: {
+    ...mapMutations([
+      'clearInputs',
+    ]),
+    ...mapActions([
+      'getUsers',
+      'login',
+    ]),
+  },
+
+};
 </script>
 
 <style lang="scss" scoped>
@@ -121,5 +122,5 @@ import LangChanger from '@/components/LangChanger.vue';
            }
        }
    }
-   
+
 </style>

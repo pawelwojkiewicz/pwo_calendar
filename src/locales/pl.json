@@ -17,5 +17,7 @@
   "invalidPassword":"hasła nie są takie same",
   "alertRegistration":"Rejestracja przebiegła pomyślnie! Możesz się zalogować!",
   "alertLogout":"Wylogowano pomyślnie!",
-  "alertLogin":"Zalogowano pomyślnie! Witaj, "
+  "alertLogin":"Zalogowano pomyślnie! Witaj, ",
+  "nextMonth" : "Następny miesiąc",
+  "prevMonth" : "Poprzedni miesiąc"
 }

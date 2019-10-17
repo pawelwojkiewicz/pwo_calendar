@@ -1,7 +1,7 @@
 <template>
     <footer class="footer">
         <span class="footer__copyright">
-            Designed and Implemented by 
+            Designed and Implemented by
             <a href="https://github.com/pawelwojkiewicz" target="_blank" class="footer__link">
                <font-awesome-icon class="footer__icon" :icon="['fab', 'github']" />
                pawel_wojkiewicz
@@ -11,9 +11,9 @@
 </template>
 
 <script>
-    export default {
-        name: 'Footer'
-    }
+export default {
+  name: 'Footer',
+};
 </script>
 
 <style lang="scss">

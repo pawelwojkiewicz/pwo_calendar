@@ -5,9 +5,9 @@
 </template>
 
 <script>
-    export default {
-        name: 'Form'
-    }
+export default {
+  name: 'Form',
+};
 </script>
 
 <style lang="scss">

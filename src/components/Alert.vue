@@ -11,12 +11,13 @@
 
 <script>
 import Logo from '@/components/Logo.vue';
-    export default {
-        name: 'Alert',
-        components: {
-            Logo
-        }
-    }
+
+export default {
+  name: 'Alert',
+  components: {
+    Logo,
+  },
+};
 </script>
 
 <style lang="scss">
@@ -53,7 +54,7 @@ import Logo from '@/components/Logo.vue';
 .alert-fade-leave-active {
     top: -100px;
 }
- 
+
 
 @media screen and (min-width: 768px) {
     .alert {

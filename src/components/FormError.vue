@@ -8,9 +8,10 @@
 
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
-    export default {
-        name: 'FormError',
-    }
+
+export default {
+  name: 'FormError',
+};
 </script>
 
 <style lang="scss" scoped>

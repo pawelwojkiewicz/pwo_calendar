@@ -5,9 +5,9 @@
 </template>
 
 <script>
-    export default {
-        name: 'Container'
-    }
+export default {
+  name: 'Container',
+};
 </script>
 
 <style lang="scss">
@@ -37,6 +37,6 @@
                 max-width: 400px;
             }
         }
-    
+
 
 </style>

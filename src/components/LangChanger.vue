@@ -2,17 +2,17 @@
     <div class="lang-changer">
         <v-select v-model="$i18n.locale" :clearable="false" :searchable="false" :options="['pl', 'en']"></v-select>
      </div>
-    
+
 </template>
 
 <script>
-    export default {
-         watch: {
-             '$i18n.locale'(newLanguage) {
-                localStorage.setItem('lang', newLanguage)
-             }
-         }
-    }
+export default {
+  watch: {
+    '$i18n.locale': function (newLanguage) {
+      localStorage.setItem('lang', newLanguage);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
