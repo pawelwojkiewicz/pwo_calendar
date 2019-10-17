@@ -1,53 +1,54 @@
 <template>
      <div class="register">
+         <LangChanger></LangChanger>
          <Container class="register__container">
              <slot>
-        <Logo class="logo--big"></Logo>
+        <Logo class="logo--big"></Logo>           
         <Form >
             <slot>
                 <div class="form__group">
                     <font-awesome-icon class="form__icon" icon="user" />
-                    <input type="text" class="form__input" autocomplete="new-password"  v-model="user.username" :placeholder="pl.userPlaceholder" required >
+                    <input type="text" class="form__input" autocomplete="new-password"  v-model="user.username" :placeholder='$t("userPlaceholder")' required >
                     <FormError v-show="invalidInput.username">
                         <slot>
-                            {{pl.requiredUser}}
+                            {{$t("requiredUser")}}
                          </slot>
                     </FormError>
                     <FormError v-show="invalidInput.sameusername">
                         <slot>
-                            {{pl.invalidUser}}
+                               {{$t("invalidUser")}}
                         </slot>
                     </FormError>
                 </div>
                  <div class="form__group">
                     <font-awesome-icon class="form__icon" icon="lock" />
-                    <input type="password" class="form__input" autocomplete="new-password" v-model="user.password"  :placeholder="pl.passwordPlaceholder" required >
+                    <input type="password" class="form__input" autocomplete="new-password" v-model="user.password"  :placeholder='$t("passwordPlaceholder")' required >
                     <FormError v-show="invalidInput.password">
                         <slot>
-                            {{pl.requiredPassword}}
+                             {{$t("requiredPassword")}}
                         </slot>
                     </FormError>
                 </div>
                  <div class="form__group">
                     <font-awesome-icon class="form__icon" icon="lock" />
-                    <input type="password" class="form__input" autocomplete="new-password" v-model="user.repassword"  :placeholder="pl.repeatPasswordPlaceholder" required >
+                    <input type="password" class="form__input" autocomplete="new-password" v-model="user.repassword"  :placeholder='$t("repeatPasswordPlaceholder")' required >
                      <FormError v-show="invalidInput.repassword && !invalidInput.differentpasswords">
                         <slot>
-                            {{pl.requiredRePassword}}
+                            {{$t("requiredRePassword")}}
                         </slot>
                     </FormError>
                     <FormError v-show="invalidInput.differentpasswords">
                         <slot>
-                            {{pl.invalidPassword}}
+                            {{$t("invalidPassword")}}
                         </slot>
                     </FormError>
                 </div>
-                              <router-link @click.native="register" class="register__form-btn btn btn--wide" tag="button" to="" replace > {{pl.register}} </router-link> 
+                              <router-link @click.native="register" class="register__form-btn btn btn--wide" tag="button" to="" replace >  {{$t("register")}} </router-link> 
                      
                      <div class="form__bottom">
                         <span class="form__bottom-text">
-                        {{pl.loginText}}
-                        <router-link @click.native="clearInputs" to="/login" class="form__bottom-link"> {{pl.logIn}} </router-link>  
+                              {{$t("loginText")}}
+                        <router-link @click.native="clearInputs" to="/login" class="form__bottom-link">{{$t("logIn")}}</router-link>  
                         </span>
                     </div>
             </slot>
@@ -66,6 +67,7 @@ import Button from '@/components/Button.vue';
 import Container from '@/components/Container.vue';
 import Footer from '@/components/Footer.vue';
 import FormError from '@/components/FormError.vue';
+import LangChanger from '@/components/LangChanger.vue';
     export default {
         name: 'Register',
         components: {
@@ -74,7 +76,8 @@ import FormError from '@/components/FormError.vue';
             Button,
             Container,
             Footer,
-            FormError
+            FormError,
+            LangChanger
          },
          computed: {
              ...mapState([

@@ -1,13 +1,14 @@
 <template>
     <div class="login">
+        <LangChanger></LangChanger>
           <Alert v-show="registrationComplete">
               <slot>
-                  {{pl.alertRegistration}}
+                  {{$t("alertRegistration")}}
               </slot>
           </Alert>
           <Alert v-show="logoutComplete">
               <slot>
-                  {{pl.alertLogout}}
+                   {{$t("alertLogout")}}
               </slot>
           </Alert>
       <Container class="login__container">
@@ -17,30 +18,28 @@
                     <slot>
                         <div class="form__group">
                             <font-awesome-icon class="form__icon" icon="user" />
-                            <input type="text" class="form__input" v-model="user.username" :placeholder="pl.userPlaceholder" required >
+                            <input type="text" class="form__input" v-model="user.username" :placeholder='$t("userPlaceholder")' required >
                         </div>
                         <div class="form__group">
                             <font-awesome-icon class="form__icon" icon="lock" />
-                            <input type="password" class="form__input" v-model="user.password" :placeholder="pl.passwordPlaceholder" required >
+                            <input type="password" class="form__input" v-model="user.password" :placeholder='$t("passwordPlaceholder")' required >
                             <FormError class="login__form-error" v-show="loginFail">
                                 <slot>
-                                    {{pl.loginFormError}}
+                                    {{$t("loginFormError")}}
                                 </slot>
                             </FormError>
                         </div>
-                        <router-link @click.native="login" class="login__form-btn btn btn--wide" tag="button" to="/login"> {{pl.logIn}} </router-link> 
+                        <router-link @click.native="login" class="login__form-btn btn btn--wide" tag="button" to="/login"> {{$t("logIn")}} </router-link> 
                         <div class="form__bottom">
                             <span class="form__bottom-text">
-                                 <p>{{ $t("message.hello") }}</p>
-                                {{pl.registerText}}
-                                <router-link @click.native="clearInputs" to="/register" class="form__bottom-link"> {{pl.register}} </router-link>  
+                            {{$t("registerText")}}
+                                <router-link @click.native="clearInputs" to="/register" class="form__bottom-link">{{$t("register")}}</router-link>  
                             </span>
                         </div>
                     </slot>
                 </Form>
             </slot>
         </Container>
-     
         <Footer></Footer>
        </div>
 </template>
@@ -54,7 +53,9 @@ import Container from '@/components/Container.vue';
 import Footer from '@/components/Footer.vue';
 import Alert from '@/components/Alert.vue';
 import FormError from '@/components/FormError.vue';
+import LangChanger from '@/components/LangChanger.vue';
     export default {
+       
          name: 'Login',
          components: {
             Logo,
@@ -63,11 +64,11 @@ import FormError from '@/components/FormError.vue';
             Container,
             Footer,
             Alert,
-            FormError
+            FormError,
+            LangChanger
          },
          computed: {
              ...mapState([
-                 'pl',
                  'user',
                  'registrationComplete',
                  'loginFail',
@@ -83,6 +84,7 @@ import FormError from '@/components/FormError.vue';
                  'login'
              ])
          },
+        
     }
 </script>
 

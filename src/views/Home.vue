@@ -2,7 +2,7 @@
     <div class="home">
         <Alert v-show="loginComplete">
             <slot>
-                {{pl.alertLogin}} <span class="home__user">{{user.username}}!</span>
+                  {{$t("alertLogin")}}<span class="home__user">{{user.username}}!</span>
             </slot>
         </Alert>
         WITAJ {{user.username}}!!! <br>

@@ -15,7 +15,7 @@
 <style lang="scss">
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700&display=swap');
-
+@import "vue-select/src/scss/vue-select.scss";
 body {
   background: #464646;
   color: #fff;

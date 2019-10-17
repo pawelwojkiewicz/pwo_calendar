@@ -6,7 +6,7 @@ import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 
 Vue.use(Router,VueResource);
-const router = new Router({})
+
 
 export default new Router({
     mode: 'history',

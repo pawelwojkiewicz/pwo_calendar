@@ -12,7 +12,7 @@
 
 <style lang="scss">
         .container {
-            padding: 60px 10px 0 10px;
+            padding: 100px 10px 0 10px;
         }
         @media screen and (min-width: 480px) {
             .container {

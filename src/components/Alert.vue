@@ -21,28 +21,27 @@ import Logo from '@/components/Logo.vue';
 
 <style lang="scss">
  .alert {
+     justify-content: center;
      display: flex;
      align-items: center;
      width: 100%;
      text-align: center;
     background:#d4edda;
     border: 1px solid #c3e6cb;
-    margin-bottom: 40px;
     font-size: 16px;
     position: absolute;
      left: 50%;
      font-size: 14px;
     transform: translateX(-50%);
-    top: 7px;
-    padding: 20px;
-    border-radius: 13px;
+    top: 0;
+    padding: 10px 0;
     &__text {
-     
         display: block;
         color: #155724;
         }
     }
-    .alert-fade-enter-active,
+
+           .alert-fade-enter-active,
 .alert-fade-leave-active {
   transition-duration: 0.5s;
   transition-property: top;
@@ -54,10 +53,18 @@ import Logo from '@/components/Logo.vue';
 .alert-fade-leave-active {
     top: -100px;
 }
+ 
 
 @media screen and (min-width: 768px) {
     .alert {
+        top: 7px;
+          border-radius: 13px;
+        padding: 10px;
         width: auto;
     }
+.alert-fade-enter,
+.alert-fade-leave-active {
+    top: -100px;
+}
 }
 </style>

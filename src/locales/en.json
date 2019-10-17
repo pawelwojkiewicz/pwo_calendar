@@ -1,0 +1,21 @@
+
+{
+  "userPlaceholder":"username",
+  "passwordPlaceholder":"password",
+  "repeatPasswordPlaceholder":"repeat password",
+  "logIn":"Log in",
+  "email":"e-mail",
+  "register":"Register",
+  "loginFormError":"You entered wrong login or password. Try again!",
+  "registerText":"Don't you have account yet?",
+  "loginText":"Do you have account?",
+  "requiredUser":"username is required",
+  "invalidUser":"user with the given name already exists",
+  "requiredEmail":"email is required",
+  "requiredPassword":"password is required",
+  "requiredRePassword":"repassword is required",
+  "invalidPassword":"passwords are not the same",
+  "alertRegistration":"Registration was successful! You can login!",
+  "alertLogout":"Logged off successfully!",
+  "alertLogin":"Signed in successfully! Hello, "
+}

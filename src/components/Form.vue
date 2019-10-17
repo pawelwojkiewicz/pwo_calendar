@@ -29,6 +29,7 @@
             color: #21a5b6;
         }
         &__input {
+            border-radius: 0;
             font-size: 18px;
             width: 100%;
             background: transparent;
