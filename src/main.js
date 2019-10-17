@@ -15,34 +15,12 @@ Vue.use(VueResource, PasswordHash, VueI18n);
 
 library.add(faUser, faEnvelope, faLock, faGithub);
 
+Vue.use(VueI18n, VueResource, PasswordHash);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 
-
-
-new Vue({
-    router,
-    store,
-    i18n,
-    render: h => h(App),
-}).$mount('#app');
-
-
-const messages = {
-    en: {
-      message: {
-        hello: 'hello world'
-      }
-    },
-    ja: {
-      message: {
-        hello: 'こんにちは、世界'
-      }
-    }
-  }
-  
   // Create VueI18n instance with options
   const i18n = new VueI18n({
     locale: 'ja', // set locale
@@ -50,5 +28,27 @@ const messages = {
   })
 
 
+const messages = {
+    en: {
+        message: {
+            hello: 'hello world'
+        }
+    },
+    ja: {
+        message: {
+            hello: 'こんにちは、世界'
+        }
+    }
+}
 
+const i18n = new VueI18n({
+    locale: 'ja', // set locale
+    messages, // set locale messages
+})
 
+new Vue({
+    i18n,
+    router,
+    store,
+    render: h => h(App),
+}).$mount('#app');
