@@ -19,5 +19,13 @@
   "alertLogout":"Wylogowano pomyślnie!",
   "alertLogin":"Zalogowano pomyślnie! Witaj, ",
   "nextMonth" : "Następny miesiąc",
-  "prevMonth" : "Poprzedni miesiąc"
+  "prevMonth" : "Poprzedni miesiąc",
+  "monday": "PN",
+  "tuesday": "WT",
+  "wednesday": "ŚR",
+  "thursday": "CZW",
+  "friday": "PT",
+  "saturday": "SB",
+  "sunday": "NDZ",
+  "polish": "pl"
 }

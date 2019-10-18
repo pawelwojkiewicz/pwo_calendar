@@ -20,7 +20,7 @@ import { mapMutations, mapState, mapActions } from 'vuex';
 
 <style lang="scss" scoped>
     .menu {
-        position: absolute;
+        position: fixed;
         top:0;
         right: 0;
         background: black;
@@ -33,6 +33,13 @@ import { mapMutations, mapState, mapActions } from 'vuex';
         }
         &__lang-changer{
             top: 78px;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .menu {
+            width: 400px;
+            z-index: 1000;
         }
     }
 </style>

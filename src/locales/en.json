@@ -19,5 +19,12 @@
   "alertLogout":"Logged off successfully!",
   "alertLogin":"Signed in successfully! Hello, ",
   "nextMonth" : "Next month",
-  "prevMonth" : "Previous month"
+  "prevMonth" : "Previous month",
+  "monday": "MON",
+  "tuesday": "TUE",
+  "wednesday": "WED",
+  "thursday": "THU",
+  "friday": "FRI",
+  "saturday": "SAT",
+  "sunday": "SUN"
 }

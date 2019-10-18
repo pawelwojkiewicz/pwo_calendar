@@ -9,6 +9,8 @@
 export default {
   watch: {
     '$i18n.locale': function (newLanguage) {
+        this.$moment.locale(newLanguage)
+   
       localStorage.setItem('lang', newLanguage);
     },
   },

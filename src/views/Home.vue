@@ -1,6 +1,5 @@
 <template>
     <div class="home">
-     
         <Alert v-show="loginComplete">
             <slot>
                   {{$t("alertLogin")}}<span class="home__user">{{user.username}}!</span>
@@ -13,6 +12,8 @@
         </Menu>
         <Header>
         </Header>
+        <Calendar></Calendar>
+
         <Footer></Footer>
     </div>
 </template>
@@ -26,6 +27,7 @@ import Logo from '@/components/Logo.vue';
 import Header from '@/components/Header.vue';
 import Container from '@/components/Container.vue';
 import Menu from '@/components/Menu.vue';
+import Calendar from '@/components/Calendar.vue';
 
 export default {
   name: 'Home',
@@ -36,7 +38,8 @@ export default {
     Logo,
     Header,
     Container,
-    Menu
+    Menu,
+    Calendar
   },
   computed: {
     ...mapState([
