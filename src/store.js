@@ -3,11 +3,9 @@ import Vuex from 'vuex';
 import PasswordHash from 'password-hash';
 import router from './router';
 import moment from 'moment'
-import VueMoment from 'vue-moment'
 
 
 Vue.use(Vuex, PasswordHash);
-Vue.use(VueMoment, { moment })
 export default new Vuex.Store({
     state: {
         // Form Validation
@@ -38,9 +36,19 @@ export default new Vuex.Store({
 
         //Open Hamburger Menu
         menuToggler: false,
-        currentDate: new this.$moment
+        moment: moment(),
+        modalDay: '',
+        modal: false
     },
+
+
     mutations: {
+        nextMonth: (state) => {
+            state.moment = moment(state.moment.add(1, 'M'))
+        },
+        prevMonth: (state) => {
+            state.moment = moment(state.moment.subtract(1, 'M'))
+        },
         // Registration
         validateUser: (state) => {
             state.invalidInput.username = (state.user.username === '');
@@ -97,11 +105,11 @@ export default new Vuex.Store({
         openToggler: (state) => {
             state.menuToggler = !state.menuToggler
         },
-        nextMonth: (state) => {
-            state.currentDate = moment(state.currentDate.add(1, 'M'));
+        openModal: (state) => {
+            state.modal = true;
         },
-        prevMonth: (state) => {
-            state.currentDate = moment(state.currentDate.subtract(1, 'M'));
+        closeModal: (state) => {
+            state.modal = false
         }
     },
 

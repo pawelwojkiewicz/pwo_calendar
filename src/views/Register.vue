@@ -80,6 +80,7 @@ export default {
     FormError,
     LangChanger,
   },
+
   computed: {
     ...mapState([
       'pl',
@@ -87,6 +88,7 @@ export default {
       'user',
     ]),
   },
+  
   methods: {
     ...mapMutations([
       'clearInputs',

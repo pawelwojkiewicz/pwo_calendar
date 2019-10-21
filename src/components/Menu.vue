@@ -5,7 +5,6 @@
         </slot>
     </div>
 </template>
-
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
     export default {
@@ -21,6 +20,7 @@ import { mapMutations, mapState, mapActions } from 'vuex';
 <style lang="scss" scoped>
     .menu {
         position: fixed;
+        z-index: 2000;
         top:0;
         right: 0;
         background: black;

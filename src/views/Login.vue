@@ -68,6 +68,7 @@ export default {
     FormError,
     LangChanger,
   },
+ 
   computed: {
     ...mapState([
       'user',
