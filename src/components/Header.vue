@@ -6,7 +6,7 @@
             <span class="header__btn-text">{{$t("prevMonth")}}</span>
         </Button>
         <div class="header__date">
-            <span class="header__date-text"> {{ currentDate | moment("MMMM") }} </span>
+            <span class="header__date-text"> {{ currentDate | moment("MMMM YYYY")}} </span>
         </div>
         <Button class="header__btn" @click.native="nextMonth" >
             <span class="header__btn-text">{{$t("nextMonth")}}</span>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapMutations, mapState, mapActions } from 'vuex';
 import moment from 'moment'
 import Button from '@/components/Button.vue';
 import MenuToggler from '@/components/MenuToggler.vue';
@@ -29,28 +30,25 @@ import Container from '@/components/Container.vue';
             MenuToggler,
             Container
         },
-        data() {
-            return {
-                currentDate: this.$moment(),
-            }
-        },
+        computed: {
+    ...mapState([
+      'currentDate'
+    ]),
+  },
+         methods: {
+    ...mapMutations([
+      'nextMonth',
+      'prevMonth'
+    ]),
+  },
+       
+         
             watch: {
     '$i18n.locale': function (newLanguage) {
         this.$set(this.currentDate, this.currentDate.locale(newLanguage))
     },
   },
-        methods: {
-            prevMonth() {
-            
-                this.$set(this.currentDate, this.currentDate.subtract(1, 'months'))
-                    console.log(this.currentDate.format('MMMM'))
-            },
-             nextMonth() {
-                
-                this.$set(this.currentDate, this.currentDate.add(1, 'months'))
-                  console.log(this.currentDate.format('MMMM'))
-            }
-        }
+       
     }
 </script>
 
@@ -69,14 +67,16 @@ import Container from '@/components/Container.vue';
             }
         }
         &__date {
-           margin: 0 30px;
+           width: 200px;
+           text-align: center;
+            margin: 0 auto;
         }
         &__container {
         display: flex;
-        width: 100%;
+        width: 220px;
+        justify-content: flex-start;
         align-items: center;
         max-width: 1200px;
-        margin: 0 auto;
         padding: 0;
         }
     }
@@ -95,8 +95,11 @@ import Container from '@/components/Container.vue';
 
     @media screen and (min-width: 1200px) {
         .header {
+              padding: 20px 90px;
             &__container {
-                width: 1200px;
+                width: 100%;
+              
+                max-width: 1200px;
                 justify-content: space-between;
             }
             &__date {
@@ -104,6 +107,7 @@ import Container from '@/components/Container.vue';
                 margin: 0 50px;
             }
             &__btn {
+                width: 220px;
                 padding: 20px;
                 display: flex;
                 font-size: 16px;

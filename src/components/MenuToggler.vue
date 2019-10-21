@@ -25,4 +25,43 @@
 
 <style lang="scss" scoped>
     @import "node_modules/hamburgers/_sass/hamburgers/hamburgers.scss";
+
+    .hamburger {
+      z-index: 2000;
+      position: absolute;
+      right: 0;
+      &:focus {
+        border: none;
+        outline: none;
+      }
+      &:hover {
+        opacity: 1;
+      }
+      &.is-active {
+        opacity: 1;
+        .hamburger-inner {
+           background-color: #fff;
+        &:before,
+        &:after {
+          background-color: #fff;
+        }
+        }
+        &:hover {
+          opacity: 1;
+        }
+      }
+      &-inner {
+        background-color: #fff;
+        &:before,
+        &:after {
+          background-color: #fff;
+        }
+      }
+    }
+
+    @media screen and (min-width: 1024px) {
+      .hamburger {
+        position: fixed;
+      }
+    }
 </style>
