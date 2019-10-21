@@ -15,13 +15,16 @@ export default {
         white-space: nowrap;
         background: #21a5b6;
         padding: 20px 30px;
-        border-radius: 0;
+        border-radius: 4px;
         text-align: center;
         border: none;
         font-size: 18px;
         &:hover {
             cursor: pointer;
             background: #369fad;
+        }
+        &:focus {
+            outline: none;
         }
         &--wide {
             width: 100%;

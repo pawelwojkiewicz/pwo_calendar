@@ -11,6 +11,7 @@
         <Menu>
             <slot>
                 <LangChanger class="menu__lang-changer"></LangChanger>
+                <router-link class="btn btn--wide" tag="button" to="/login"> {{$t("logOut")}} </router-link>
             </slot>
         </Menu>
         <Header>
@@ -36,6 +37,7 @@ import Menu from '@/components/Menu.vue';
 import Calendar from '@/components/Calendar.vue';
 import Modal from '@/components/Modal.vue';
 import Overlay from '@/components/Overlay.vue';
+import Button from '@/components/Button.vue';
 
 export default {
     name: 'Home',
@@ -49,7 +51,8 @@ export default {
         Menu,
         Calendar,
         Modal,
-        Overlay
+        Overlay,
+        Button
     },
     computed: {
         ...mapState([

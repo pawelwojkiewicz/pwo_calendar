@@ -18,9 +18,10 @@ import moment from 'moment'
 Vue.component('v-select', vSelect);
 library.add(faUser, faEnvelope, faLock, faGithub, faChevronLeft, faChevronRight, faTimes);
 
-Vue.use(Vue2TouchEvents, VueResource, PasswordHash);
-
+Vue.use(VueResource);
 Vue.use(VueMoment, { moment })
+Vue.use(Vue2TouchEvents)
+Vue.use(PasswordHash)
 
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);

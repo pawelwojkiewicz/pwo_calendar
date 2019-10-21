@@ -64,6 +64,7 @@ export default {
         display: block;
         text-align: center;
         font-size: 30px;
+        text-transform: capitalize;
         margin-top: 5px;
         &:after {
             content: '';

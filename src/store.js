@@ -105,7 +105,7 @@ export default new Vuex.Store({
         },
         openToggler: (state) => {
             state.menuToggler = !state.menuToggler
-            state.overlay = true;
+            state.overlay = !state.overlay
         },
         openModal: (state) => {
             state.modal = true;
