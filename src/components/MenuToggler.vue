@@ -27,7 +27,7 @@
     @import "node_modules/hamburgers/_sass/hamburgers/hamburgers.scss";
 
     .hamburger {
-      z-index: 2000;
+      
       position: absolute;
       right: 0;
       &:focus {
@@ -39,6 +39,7 @@
       }
       &.is-active {
         opacity: 1;
+        z-index: 2000;
         .hamburger-inner {
            background-color: #fff;
         &:before,

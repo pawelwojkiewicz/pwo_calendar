@@ -38,7 +38,8 @@ export default new Vuex.Store({
         menuToggler: false,
         moment: moment(),
         modalDay: '',
-        modal: false
+        modal: false,
+        overlay: false
     },
 
 
@@ -104,12 +105,20 @@ export default new Vuex.Store({
         },
         openToggler: (state) => {
             state.menuToggler = !state.menuToggler
+            state.overlay = true;
         },
         openModal: (state) => {
             state.modal = true;
+            state.overlay = true;
         },
         closeModal: (state) => {
             state.modal = false
+            state.overlay = false
+        },
+        closeMenu: (state) => {
+            state.menuToggler = false;
+            state.overlay = false;
+            state.modal = false;
         }
     },
 

@@ -34,10 +34,9 @@ export default {
     },
     computed: {
         ...mapState([
-            'moment'
+            'moment',
         ]),
     },
-
     methods: {
         ...mapMutations([
             'prevMonth',
