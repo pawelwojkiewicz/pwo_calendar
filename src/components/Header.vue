@@ -8,9 +8,6 @@
             <div class="header__date">
                 <span class="header__date-text"> {{ moment | moment("MMMM YYYY") }} </span>
             </div>
-            <slot>
-
-            </slot>
             <Button class="header__btn" @click.native="nextMonth">
                     <span class="header__btn-text">{{$t("nextMonth")}}</span>
                     <slot><font-awesome-icon class="header__btn-icon header__btn-icon--right" icon="chevron-right" /></slot>
@@ -95,7 +92,7 @@ export default {
 
 @media screen and (min-width: 1200px) {
     .header {
-        padding: 20px 130px;
+        padding: 20px 90px;
         &__container {
 
             max-width: 1240px;

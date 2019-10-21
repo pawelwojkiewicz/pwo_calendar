@@ -10,13 +10,10 @@
         </transition>
         <Menu>
             <slot>
-                <LangChanger class="menu__lang-changer "></LangChanger>
+                <LangChanger class="menu__lang-changer"></LangChanger>
             </slot>
         </Menu>
         <Header>
-             <slot>
-                <LangChanger class="home__lang-changer"></LangChanger>
-            </slot>
         </Header>
         <Calendar></Calendar>
     
@@ -76,9 +73,6 @@ export default {
         bottom: auto;
         margin: 40px 0 10px 0;
     }
-    &__lang-changer {
-      display: none;
-    }
 }
 
 .modal-trans-enter-active,
@@ -116,12 +110,6 @@ export default {
     .home {
         &__footer {
             margin-top: 100px;
-        }
-        &__lang-changer {
-          display: block;
-          position: fixed;
-          top: 33px;
-          right: 65px;
         }
     }
 }
