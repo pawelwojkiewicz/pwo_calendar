@@ -24,6 +24,9 @@ export default {
         font-size: 14px;
         transform: translateX(-50%);
         left: 50%;
+        &--small {
+            font-size: 12px;
+        }
         &__copyright {
             display: block;
             text-align: center;
@@ -37,6 +40,15 @@ export default {
         }
         &__icon {
             margin-right: 5px;
+        }
+    }
+
+
+    @media screen and (min-width: 768px) {
+        .footer {
+            &--small {
+                font-size: 14px;
+            }
         }
     }
 

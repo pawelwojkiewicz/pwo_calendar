@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import PasswordHash from 'password-hash';
 import router from './router';
+import moment from 'moment'
 
 Vue.use(Vuex, PasswordHash);
 
@@ -34,9 +35,20 @@ export default new Vuex.Store({
     loggedUsername: '',
 
     //Open Hamburger Menu
-    menuToggler: false
+    menuToggler: false,
+    moment: moment(),
+    modalDay: '',
+    modal: false
   },
+
+
   mutations: {
+    nextMonth: (state) => {
+      state.moment = moment(state.moment.add(1,'M'))
+    },
+    prevMonth: (state) => {
+      state.moment = moment(state.moment.subtract(1,'M'))
+    },
     // Registration
     validateUser: (state) => {
       state.invalidInput.username = (state.user.username === '');
@@ -92,8 +104,15 @@ export default new Vuex.Store({
     },
     openToggler: (state) => {
       state.menuToggler = !state.menuToggler
+    },
+    openModal: (state) => {
+      state.modal = true;
+    },
+    closeModal: (state) => {
+      state.modal = false
     }
   },
+
 
   actions: {
     // Register
