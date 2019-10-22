@@ -3,6 +3,7 @@
         <slot>
 
         </slot>
+        <router-link to="/login">logout</router-link>
     </div>
 </template>
 <script>
