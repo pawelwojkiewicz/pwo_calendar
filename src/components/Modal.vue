@@ -3,18 +3,17 @@
         <button @click="closeModal" class="modal__close"><font-awesome-icon icon="times" /></button>
         <div class="modal__content">
             <span class="modal__title">
-                          {{modalDay}} {{ moment | moment('MMMM YYYY') }}   
-                </span>
+                              {{modalDay}} {{ moment | moment('MMMM YYYY') }}   
+                              {{loggedUsername}}
+                    </span>
             <button @click="addTask" class="modal__add-task-btn">
-                <font-awesome-icon icon="plus" class="modal__add-task-icon" />
-                {{$t("addtask")}}
-                </button>
+                    <font-awesome-icon icon="plus" class="modal__add-task-icon" />
+                    {{$t("addtask")}}
+                    </button>
             <TaskList></TaskList>
             <Button class="modal__btn" @click.native="post">Zapisz notatki</Button>
-            {{user.username}}
         </div>
     </div>
-  
 </template>
 
 <script>
@@ -32,18 +31,29 @@ export default {
             'modalDay',
             'moment',
             'user',
-            'loggedUsername'
+            'loggedUsername',
+            'modalId'
         ]),
     },
     methods: {
         ...mapMutations([
-            'closeModal',
             'addTask'
         ]),
-         ...mapActions([
-            'post'
-        ]),
+        post() {
+            this.$store.dispatch('post')
+        },
+ 
+        closeModal() {
+            this.$store.commit('closeModal')
+            const body = document.querySelector('body');
+            const html = document.querySelector('html');
+            body.classList.remove('no-scroll');
+            html.classList.remove('no-scroll');
+        }
     },
+    created() {
+        this.$store.state.modalId =  this.modalDay + '-' + this.moment.format('M-Y')
+    }
 }
 </script>
 

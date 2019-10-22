@@ -5,7 +5,6 @@
                 {{$t("alertLogin")}}<span class="home__user">{{user.username}}!</span>
             </slot>
         </Alert>
-           {{loggedUsername}}ere
         <transition name="modal-trans">
             <Modal v-if="modal"></Modal>
         </transition>
@@ -69,8 +68,13 @@ export default {
         ]),
         ...mapMutations([
             'openModal',
+
         ]),
     },
+    created() {
+        const user = localStorage.getItem('user');
+        this.$store.state.loggedUsername = user;
+    }
 };
 </script>
 

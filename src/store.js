@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import PasswordHash from 'password-hash';
 import router from './router';
-import moment from 'moment'
+import moment, { locale } from 'moment'
 
 
 Vue.use(Vuex, PasswordHash);
@@ -40,7 +40,8 @@ export default new Vuex.Store({
         modalDay: '',
         modal: false,
         overlay: false,
-        taskList:[],
+        taskList: [],
+        modalId: ''
 
     },
 
@@ -93,6 +94,8 @@ export default new Vuex.Store({
             state.user.username = '';
             state.user.password = '';
             state.logoutComplete = true;
+            state.menuToggler = false;
+            state.overlay = false;
         },
 
         // Clear Inputs
@@ -123,7 +126,7 @@ export default new Vuex.Store({
             state.modal = false;
         },
         addTask: (state) => {
-            state.taskList.push({text: ''});
+            state.taskList.push({ text: '' });
         }
     },
 
@@ -173,37 +176,38 @@ export default new Vuex.Store({
                 state.users = data;
                 const passwordHash = require('password-hash');
                 if (state.user.username === state.users.username && passwordHash.verify(`${state.user.password}`, state.users.password)) {
+                    localStorage.setItem('user', state.user.username);
+
                     router.push({ path: '/' });
                     dispatch('loginCompleteAlert');
-                    console.log(state.user.username)
-                    state.loggedUsername = state.user.username
-                  
+
+
                 } else {
                     commit('loginFail', true);
                 }
             });
         },
         // Login Complete Alert
-        loginCompleteAlert({ commit }) {
+        loginCompleteAlert({ state, commit }) {
             commit('loginComplete', true);
             setTimeout(() => {
                 commit('loginComplete', false);
             }, 2500);
+            console.log(state.loggedUsername)
         },
         // Logout Complete
         logoutComplete({ commit }) {
             commit('logoutCompleteAlert', true);
             commit('logoutComplete');
+            localStorage.removeItem('user');
             setTimeout(() => {
                 commit('logoutCompleteAlert', false);
             }, 2500);
         },
-        post(state, commit, dispatch) {
-            console.log('siema');
-            console.log(state.loggedUsername)
-            Vue.http.patch(`https://pwo-calendar.firebaseio.com/users/${state.loggedUsername}/${state.modalDay}.json`, { tasklist: state.taskList }).then(function (data) {
+        post({ state }) {
+            Vue.http.patch(`https://pwo-calendar.firebaseio.com/users/${state.loggedUsername}/tasks/${state.modalId}.json`, { tasklist: state.taskList }).then(function(data) {
                 console.log(data);
-        })
+            })
         }
     },
 });

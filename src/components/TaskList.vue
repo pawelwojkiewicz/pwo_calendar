@@ -14,7 +14,8 @@ export default {
     name: 'TaskList',
     computed: {
         ...mapState([
-            'taskList'
+            'taskList',
+            'modalId'
         ]),
     },
 }

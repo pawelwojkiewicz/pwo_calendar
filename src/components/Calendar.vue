@@ -44,7 +44,6 @@ export default {
             return this.moment.get('date');
         },
         firstDays() {
-            console.log(localStorage.getItem('lang'));
             if(localStorage.getItem('lang') === 'en') {
                 let firstDay = moment(this.moment).subtract((this.currentDate), 'days');
                 return firstDay.weekday();
@@ -72,9 +71,7 @@ export default {
             const body = document.querySelector('body');
             const html = document.querySelector('html');
             body.classList.add('no-scroll');
-            html.classList.add('no-scroll');
-            console.log(body);
-            
+            html.classList.add('no-scroll');  
         }
     },
     watch: {

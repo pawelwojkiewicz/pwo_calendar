@@ -11,6 +11,10 @@ import { mapMutations, mapState, mapActions } from 'vuex';
         methods: {
         closeMenu() {
             this.$store.commit('closeMenu');
+            const body = document.querySelector('body');
+            const html = document.querySelector('html');
+            body.classList.remove('no-scroll');
+            html.classList.remove('no-scroll');
         }
     },
     }
