@@ -1,22 +1,26 @@
 <template>
-    <div class="home">
+    <div class="home" :class="{'home--padding': menuToggler}">
         <Alert v-show="loginComplete">
             <slot>
                 {{$t("alertLogin")}}<span class="home__user">{{user.username}}!</span>
             </slot>
         </Alert>
         <transition name="modal-trans">
-            <Modal v-if="modal"></Modal>
+            <Modal v-if="modal"></Modal> 
         </transition>
         <Menu>
             <slot>
                 <LangChanger class="menu__lang-changer"></LangChanger>
+                <router-link class="btn btn--wide" tag="button" to="/login"> {{$t("logOut")}} </router-link>
             </slot>
         </Menu>
         <Header>
         </Header>
         <Calendar></Calendar>
-    
+          <transition name="fade" mode="out-in">
+        <Overlay v-if="overlay"></Overlay>
+          </transition>
+        
         <Footer class="home__footer footer--small"></Footer>
     </div>
 </template>
@@ -32,6 +36,8 @@ import Container from '@/components/Container.vue';
 import Menu from '@/components/Menu.vue';
 import Calendar from '@/components/Calendar.vue';
 import Modal from '@/components/Modal.vue';
+import Overlay from '@/components/Overlay.vue';
+import Button from '@/components/Button.vue';
 
 export default {
     name: 'Home',
@@ -44,14 +50,18 @@ export default {
         Container,
         Menu,
         Calendar,
-        Modal
+        Modal,
+        Overlay,
+        Button
     },
     computed: {
         ...mapState([
             'user',
             'pl',
             'loginComplete',
-            'modal'
+            'modal',
+            'overlay',
+            'menuToggler'
 
         ]),
     },
@@ -108,6 +118,10 @@ export default {
 
 @media screen and (min-width: 1200px) {
     .home {
+        transition: .3s;
+        &--padding{
+            padding-right: 350px;
+        }
         &__footer {
             margin-top: 100px;
         }

@@ -18,10 +18,17 @@ import moment from 'moment'
 Vue.component('v-select', vSelect);
 library.add(faUser, faEnvelope, faLock, faGithub, faChevronLeft, faChevronRight, faTimes);
 
+<<<<<<< HEAD
 Vue.use(VueResource, PasswordHash);
 
 Vue.use(VueMoment,{moment})
 Vue.use(Vue2TouchEvents)
+=======
+Vue.use(VueResource);
+Vue.use(VueMoment, { moment })
+Vue.use(Vue2TouchEvents)
+Vue.use(PasswordHash)
+>>>>>>> d5a705eee8b3f0f049d2d008f07f48d261a6b814
 
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
@@ -34,10 +41,8 @@ Vue.config.productionTip = false;
 
 
 new Vue({
-  router,
-  store,
-  i18n,
-  render: h => h(App),
+    router,
+    store,
+    i18n,
+    render: h => h(App),
 }).$mount('#app');
-
-

@@ -6,8 +6,8 @@
             </li>
         </ul>
         <ul class="calendar__month-list">
-            <li class="calendar__month-list-element calendar__month-list-element--empty"  v-for="(day,index) in firstDays" :key="'siema'+ index"></li>
-            <li class="calendar__month-list-element" @click="openModal(day)" v-for="(day,index) in moment.daysInMonth()" :key="index+'day'" :class="{'calendar__month-list-element--today': day === today && currentMonth===moment.format('MMMM') && currentYear===moment.format('YYYY')   }">
+            <li class="calendar__month-list-element calendar__month-list-element--empty" v-for="(day,index) in firstDays" :key="'siema'+ index"></li>
+            <li class="calendar__month-list-element" @click="openModal(day)" v-for="(day,index) in moment.daysInMonth()" :key="index+'day'" :class="{'calendar__month-list-element--today': day === today && checkCurrentDay}">
                 <span class="calendar__month-list-text">{{day}}</span>
             </li>
         </ul>
@@ -17,36 +17,49 @@
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
 import moment from 'moment'
+import { watch } from 'fs';
 export default {
     data() {
         return {
             days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-            defaultMoment: new moment()
+            defaultMoment: new moment(),
         }
     },
-    
+
     computed: {
         ...mapState([
             'moment',
         ]),
-       
+
         today() {
             return this.defaultMoment.get('date')
         },
         currentMonth() {
-            return this.defaultMoment.format('MMMM')
+            return this.defaultMoment.format('M')
         },
-         currentYear() {
+        currentYear() {
             return this.defaultMoment.format('YYYY')
         },
-         currentDate() {
+        currentDate() {
             return this.moment.get('date');
         },
         firstDays() {
-             const firstDay = moment(this.moment).subtract((this.currentDate), 'days');
-             return firstDay.weekday();
-        
+            console.log(localStorage.getItem('lang'));
+            if(localStorage.getItem('lang') === 'en') {
+                let firstDay = moment(this.moment).subtract((this.currentDate), 'days');
+                return firstDay.weekday();
+            } else {
+                let firstDay = moment(this.moment).subtract((this.currentDate -1), 'days');
+                return firstDay.weekday();
+            }
+            
         },
+        checkCurrentDay() {
+            if(this.currentMonth === this.moment.format('M') && this.currentYear === this.moment.format('YYYY')) {
+                return true;
+            };
+        }
+
     },
     methods: {
         ...mapMutations([
@@ -57,10 +70,13 @@ export default {
             this.$store.commit('openModal');
             this.$store.state.modalDay = day;
         }
+    },
+    watch: {
+        moment: function() {
+             this.checkCurrentDay
+        }
     }
-
-
-
+    
 }
 </script>
 
@@ -170,6 +186,10 @@ export default {
                 border: 1px solid #333333;
                 margin: 1px;
             }
+        }
+        &__container {
+            max-width: 1260px;
+            margin: 0 auto;
         }
     }
 }

@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import moment from 'moment'
 import { mapMutations, mapState, mapActions } from 'vuex';
+import moment from 'moment'
 import Button from '@/components/Button.vue';
 import MenuToggler from '@/components/MenuToggler.vue';
 import Container from '@/components/Container.vue';
@@ -34,10 +34,9 @@ export default {
     },
     computed: {
         ...mapState([
-            'moment'
+            'moment',
         ]),
     },
-
     methods: {
         ...mapMutations([
             'prevMonth',

@@ -39,8 +39,7 @@ import { mapMutations, mapState, mapActions } from 'vuex';
 
     @media screen and (min-width: 768px) {
         .menu {
-            width: 400px;
-            z-index: 1000;
+            width: 350px;
         }
     }
 </style>
