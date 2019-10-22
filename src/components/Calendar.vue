@@ -69,6 +69,12 @@ export default {
         openModal(day) {
             this.$store.commit('openModal');
             this.$store.state.modalDay = day;
+            const body = document.querySelector('body');
+            const html = document.querySelector('html');
+            body.classList.add('no-scroll');
+            html.classList.add('no-scroll');
+            console.log(body);
+            
         }
     },
     watch: {

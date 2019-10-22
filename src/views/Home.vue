@@ -5,22 +5,19 @@
                 {{$t("alertLogin")}}<span class="home__user">{{user.username}}!</span>
             </slot>
         </Alert>
+           {{loggedUsername}}ere
         <transition name="modal-trans">
-            <Modal v-if="modal"></Modal> 
+            <Modal v-if="modal"></Modal>
         </transition>
         <Menu>
-            <slot>
-                <LangChanger class="menu__lang-changer"></LangChanger>
-                <router-link class="btn btn--wide" tag="button" to="/login"> {{$t("logOut")}} </router-link>
-            </slot>
         </Menu>
         <Header>
         </Header>
         <Calendar></Calendar>
-          <transition name="fade" mode="out-in">
-        <Overlay v-if="overlay"></Overlay>
-          </transition>
-        
+        <transition name="fade" mode="out-in">
+            <Overlay v-if="overlay"></Overlay>
+        </transition>
+ 
         <Footer class="home__footer footer--small"></Footer>
     </div>
 </template>
@@ -61,7 +58,8 @@ export default {
             'loginComplete',
             'modal',
             'overlay',
-            'menuToggler'
+            'menuToggler',
+            'loggedUsername'
 
         ]),
     },
@@ -119,7 +117,7 @@ export default {
 @media screen and (min-width: 1200px) {
     .home {
         transition: .3s;
-        &--padding{
+        &--padding {
             padding-right: 350px;
         }
         &__footer {

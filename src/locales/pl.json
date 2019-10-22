@@ -27,5 +27,6 @@
     "friday": "PT",
     "saturday": "SB",
     "sunday": "NDZ",
-    "polish": "pl"
+    "polish": "pl",
+    "addtask": "Dodaj zadanie"
 }

@@ -32,6 +32,15 @@ body {
   box-sizing: border-box;
 }
 
+html,
+body {
+ &.no-scroll {
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+  }
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition-duration: 0.3s;

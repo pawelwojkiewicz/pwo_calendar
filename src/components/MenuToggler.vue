@@ -29,7 +29,7 @@
     .hamburger {
       
       position: absolute;
-      right: 0;
+      right: 10px;
       &:focus {
         border: none;
         outline: none;

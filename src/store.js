@@ -39,7 +39,9 @@ export default new Vuex.Store({
         moment: moment(),
         modalDay: '',
         modal: false,
-        overlay: false
+        overlay: false,
+        taskList:[],
+
     },
 
 
@@ -119,6 +121,9 @@ export default new Vuex.Store({
             state.menuToggler = false;
             state.overlay = false;
             state.modal = false;
+        },
+        addTask: (state) => {
+            state.taskList.push({text: ''});
         }
     },
 
@@ -170,6 +175,9 @@ export default new Vuex.Store({
                 if (state.user.username === state.users.username && passwordHash.verify(`${state.user.password}`, state.users.password)) {
                     router.push({ path: '/' });
                     dispatch('loginCompleteAlert');
+                    console.log(state.user.username)
+                    state.loggedUsername = state.user.username
+                  
                 } else {
                     commit('loginFail', true);
                 }
@@ -190,5 +198,12 @@ export default new Vuex.Store({
                 commit('logoutCompleteAlert', false);
             }, 2500);
         },
+        post(state, commit, dispatch) {
+            console.log('siema');
+            console.log(state.loggedUsername)
+            Vue.http.patch(`https://pwo-calendar.firebaseio.com/users/${state.loggedUsername}/${state.modalDay}.json`, { tasklist: state.taskList }).then(function (data) {
+                console.log(data);
+        })
+        }
     },
 });

@@ -3,25 +3,45 @@
         <button @click="closeModal" class="modal__close"><font-awesome-icon icon="times" /></button>
         <div class="modal__content">
             <span class="modal__title">
-                      {{modalDay}} {{ moment | moment('MMMM YYYY') }}   
+                          {{modalDay}} {{ moment | moment('MMMM YYYY') }}   
                 </span>
+            <button @click="addTask" class="modal__add-task-btn">
+                <font-awesome-icon icon="plus" class="modal__add-task-icon" />
+                {{$t("addtask")}}
+                </button>
+            <TaskList></TaskList>
+            <Button class="modal__btn" @click.native="post">Zapisz notatki</Button>
+            {{user.username}}
         </div>
     </div>
+  
 </template>
 
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
+import TaskList from '@/components/TaskList.vue';
+import Button from '@/components/Button.vue';
 export default {
     name: 'Modal',
+    components: {
+        TaskList,
+        Button
+    },
     computed: {
         ...mapState([
             'modalDay',
-            'moment'
+            'moment',
+            'user',
+            'loggedUsername'
         ]),
     },
-     methods: {
-         ...mapMutations([
+    methods: {
+        ...mapMutations([
             'closeModal',
+            'addTask'
+        ]),
+         ...mapActions([
+            'post'
         ]),
     },
 }
@@ -60,10 +80,13 @@ export default {
             outline: none;
         }
     }
+    &__content {
+        padding: 45px 10px 10px 10px;
+    }
     &__title {
         display: block;
         text-align: center;
-        font-size: 30px;
+        font-size: 22px;
         text-transform: capitalize;
         margin-top: 5px;
         &:after {
@@ -75,18 +98,55 @@ export default {
             margin: 10px auto;
         }
     }
+    &__btn {
+        position: absolute;
+        width: calc(100% - 20px);
+        bottom: 20px;
+    }
+    &__add-task-btn {
+        background: transparent;
+        border: none;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        padding: 0;
+        font-size: 14px;
+    }
+    &__add-task-icon {
+        margin-right: 10px;
+        font-size: 20px;
+        color: #21a5b6;
+    }
 }
 
 @media screen and (min-width: 768px) {
     .modal {
         width: 600px;
-        min-height: 600px;
+        min-height: 500px;
         height: auto;
         overflow: hidden;
+        padding-bottom: 80px;
+        &__title {
+            font-size: 30px;
+        }
+        &__content {
+            padding-top: 10px;
+        }
+        &__close {
+            padding-right: 15px;
+            padding-top: 15px;
+        }
     }
 }
 
-
-
-
+@media screen and (min-width: 1200px) {
+    .modal {
+        &__btn {
+            width: 300px;
+            transform: translateX(-50%);
+            left: 50%;
+            margin-left: 0;
+        }
+    }
+}
 </style>
