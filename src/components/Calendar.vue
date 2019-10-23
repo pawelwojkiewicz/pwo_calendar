@@ -32,33 +32,34 @@ export default {
       'moment',
     ]),
 
-    today() {
-      return this.defaultMoment.get('date');
-    },
-    currentMonth() {
-      return this.defaultMoment.format('M');
-    },
-    currentYear() {
-      return this.defaultMoment.format('YYYY');
-    },
-    currentDate() {
-      return this.moment.get('date');
-    },
-    firstDays() {
-      console.log(localStorage.getItem('lang'));
-      if (localStorage.getItem('lang') === 'en') {
-        const firstDay = moment(this.moment).subtract((this.currentDate), 'days');
-        return firstDay.weekday();
-      }
-      const firstDay = moment(this.moment).subtract((this.currentDate - 1), 'days');
-      return firstDay.weekday();
-    },
-    checkCurrentDay() {
-      if (this.currentMonth === this.moment.format('M') && this.currentYear === this.moment.format('YYYY')) {
-        return true;
-      }
-    },
-
+        today() {
+            return this.defaultMoment.get('date')
+        },
+        currentMonth() {
+            return this.defaultMoment.format('M')
+        },
+        currentYear() {
+            return this.defaultMoment.format('YYYY')
+        },
+        currentDate() {
+            return this.moment.get('date');
+        },
+        firstDays() {
+            if(localStorage.getItem('lang') === 'en') {
+                let firstDay = moment(this.moment).subtract((this.currentDate), 'days');
+                return firstDay.weekday();
+            } else {
+                let firstDay = moment(this.moment).subtract((this.currentDate -1), 'days');
+                return firstDay.weekday();
+            }
+            
+        },
+        checkCurrentDay() {
+            if(this.currentMonth === this.moment.format('M') && this.currentYear === this.moment.format('YYYY')) {
+                return true;
+            };
+        }
+ 
   },
   methods: {
     ...mapMutations([
@@ -74,10 +75,19 @@ export default {
       html.classList.add('no-scroll');
       console.log(body);
     },
-  },
-  watch: {
-    moment() {
-      this.checkCurrentDay;
+    methods: {
+        ...mapMutations([
+            'nextMonth',
+            'prevMonth'
+        ]),
+        openModal(day) {
+            this.$store.commit('openModal');
+            this.$store.state.modalDay = day;
+            const body = document.querySelector('body');
+            const html = document.querySelector('html');
+            body.classList.add('no-scroll');
+            html.classList.add('no-scroll');  
+        }
     },
   },
 

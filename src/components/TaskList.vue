@@ -12,13 +12,14 @@
 import { mapMutations, mapState, mapActions } from 'vuex';
 
 export default {
-  name: 'TaskList',
-  computed: {
-    ...mapState([
-      'taskList',
-    ]),
-  },
-};
+    name: 'TaskList',
+    computed: {
+        ...mapState([
+            'taskList',
+            'modalId'
+        ]),
+    },
+}
 </script>
 
 <style lang="scss" scoped>

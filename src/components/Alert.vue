@@ -22,6 +22,7 @@ export default {
 
 <style lang="scss">
  .alert {
+     z-index: 2000;
      justify-content: center;
      display: flex;
      align-items: center;
