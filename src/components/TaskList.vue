@@ -1,10 +1,13 @@
 <template>
     <ul class="task-list">
+          <transition-group name="fade" mode="out-in">
         <li class="task-list__element" v-for="(taskItem,index) in taskList" :key="'task-item' + index">
             <input type="checkbox" class="task-list__checkbox">
             <input type="text" class="task-list__input" placeholder="Wpisz notatkę..." v-model="taskItem.text">
-            <font-awesome-icon icon="times" class="task-list__icon" />
+            <font-awesome-icon icon="times" class="task-list__icon" @click="deleteTask(taskItem)" />
         </li>
+          </transition-group>
+
     </ul>
 </template>
 
@@ -12,14 +15,20 @@
 import { mapMutations, mapState, mapActions } from 'vuex';
 
 export default {
-    name: 'TaskList',
-    computed: {
-        ...mapState([
-            'taskList',
-            'modalId'
-        ]),
+  name: 'TaskList',
+  computed: {
+    ...mapState([
+      'taskList',
+      'modalId',
+    ]),
+  },
+  methods: {
+    deleteTask(taskItem) {
+      console.log(taskItem);
+      this.taskList.splice(this.taskList.indexOf(taskItem), 1);
     },
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

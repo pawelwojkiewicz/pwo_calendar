@@ -5,10 +5,16 @@
                 {{$t(`${day}`)}}
             </li>
         </ul>
+
         <ul class="calendar__month-list">
             <li class="calendar__month-list-element calendar__month-list-element--empty" v-for="(day,index) in firstDays" :key="'siema'+ index"></li>
             <li class="calendar__month-list-element" @click="openModal(day)" v-for="(day,index) in moment.daysInMonth()" :key="index+'day'" :class="{'calendar__month-list-element--today': day === today && checkCurrentDay}">
                 <span class="calendar__month-list-text">{{day}}</span>
+                <ul class="calendar__element-list">
+                        <li class="calendar__element-list-item" v-for="(task,i) in allTasks(day)" :key="i">
+                            {{task.text}}
+                        </li>
+                </ul>
             </li>
         </ul>
     </div>
@@ -30,41 +36,44 @@ export default {
   computed: {
     ...mapState([
       'moment',
+      'calendarTasks',
+      'modalDay',
     ]),
 
-        today() {
-            return this.defaultMoment.get('date')
-        },
-        currentMonth() {
-            return this.defaultMoment.format('M')
-        },
-        currentYear() {
-            return this.defaultMoment.format('YYYY')
-        },
-        currentDate() {
-            return this.moment.get('date');
-        },
-        firstDays() {
-            if(localStorage.getItem('lang') === 'en') {
-                let firstDay = moment(this.moment).subtract((this.currentDate), 'days');
-                return firstDay.weekday();
-            } else {
-                let firstDay = moment(this.moment).subtract((this.currentDate -1), 'days');
-                return firstDay.weekday();
-            }
-            
-        },
-        checkCurrentDay() {
-            if(this.currentMonth === this.moment.format('M') && this.currentYear === this.moment.format('YYYY')) {
-                return true;
-            };
-        }
- 
+    today() {
+      return this.defaultMoment.get('date');
+    },
+    currentMonth() {
+      return this.defaultMoment.format('M');
+    },
+    currentYear() {
+      return this.defaultMoment.format('YYYY');
+    },
+    currentDate() {
+      return this.moment.get('date');
+    },
+    firstDays() {
+      if (localStorage.getItem('lang') === 'en') {
+        const firstDay = moment(this.moment).subtract((this.currentDate), 'days');
+        return firstDay.weekday();
+      }
+      const firstDay = moment(this.moment).subtract((this.currentDate - 1), 'days');
+      return firstDay.weekday();
+    },
+    checkCurrentDay() {
+      if (this.currentMonth === this.moment.format('M') && this.currentYear === this.moment.format('YYYY')) {
+        return true;
+      }
+    },
+
   },
   methods: {
     ...mapMutations([
       'nextMonth',
       'prevMonth',
+    ]),
+    ...mapActions([
+      'getAllTasks',
     ]),
     openModal(day) {
       this.$store.commit('openModal');
@@ -73,24 +82,20 @@ export default {
       const html = document.querySelector('html');
       body.classList.add('no-scroll');
       html.classList.add('no-scroll');
-      console.log(body);
     },
-    methods: {
-        ...mapMutations([
-            'nextMonth',
-            'prevMonth'
-        ]),
-        openModal(day) {
-            this.$store.commit('openModal');
-            this.$store.state.modalDay = day;
-            const body = document.querySelector('body');
-            const html = document.querySelector('html');
-            body.classList.add('no-scroll');
-            html.classList.add('no-scroll');  
-        }
+    calendarBox(day) {
+      return `${day}-${this.moment.format('M-Y')}`;
+    },
+    allTasks(day) {
+      if (typeof this.calendarTasks[this.calendarBox(day)] !== 'undefined') {
+        return this.calendarTasks[this.calendarBox(day)].tasklist;
+      }
+      return [];
     },
   },
-
+  created() {
+    this.getAllTasks();
+  },
 };
 </script>
 
@@ -157,6 +162,24 @@ export default {
             left: 50%;
             top: 10px;
             font-size: 12px;
+        }
+    }
+    &__element-list {
+        list-style: none;
+        font-weight: 500;
+        font-size: 13px;
+        font-family: 'Roboto', sans-serif;
+        padding: 0;
+        text-align: left;
+        padding-top: 25px;
+        &-item {
+            background: #bd5959;
+            margin: 3px;
+            padding: 2px;
+            border-radius: 3px;
+            -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
+            -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
         }
     }
 }

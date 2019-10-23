@@ -28,5 +28,6 @@
     "saturday": "SB",
     "sunday": "NDZ",
     "polish": "pl",
-    "addtask": "Dodaj zadanie"
+    "addtask": "Dodaj zadanie",
+    "saveNotes": "Zapisz notatki"
 }

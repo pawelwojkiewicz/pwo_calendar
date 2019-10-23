@@ -2,7 +2,7 @@
     <div class="menu" :class="{'menu__open' : menuToggler}">
         <LangChanger class="menu__lang-changer"></LangChanger>
           <span>Witaj {{loggedUsername}}</span>
-        
+
         <router-link @click.native="logoutComplete" class="menu__logout-btn btn btn--wide" tag="button" to="/login"> {{$t("logOut")}} </router-link>
     </div>
 </template>
@@ -12,25 +12,25 @@ import { mapMutations, mapState, mapActions } from 'vuex';
 import LangChanger from '@/components/LangChanger.vue';
 
 export default {
-    name: 'Menu',
-    components: {
-        LangChanger
-    },
-    computed: {
-        ...mapState([
-            'menuToggler',
-            'users',
-            'loggedUsername'
-        ]),
-        
-    },
-    methods: {
-        ...mapActions([
-            'logoutComplete'
-        ]),
-        
-    }
-}
+  name: 'Menu',
+  components: {
+    LangChanger,
+  },
+  computed: {
+    ...mapState([
+      'menuToggler',
+      'users',
+      'loggedUsername',
+    ]),
+
+  },
+  methods: {
+    ...mapActions([
+      'logoutComplete',
+    ]),
+
+  },
+};
 </script>
 
 <style lang="scss" scoped>

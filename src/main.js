@@ -16,6 +16,7 @@ import store from './store';
 import router from './router';
 import App from './App.vue';
 import i18n from './i18n';
+import vuetify from './plugins/vuetify';
 
 Vue.component('v-select', vSelect);
 library.add(faUser, faEnvelope, faLock, faGithub, faChevronLeft, faChevronRight, faTimes, faPlus);
@@ -36,5 +37,6 @@ new Vue({
   router,
   store,
   i18n,
+  vuetify,
   render: h => h(App),
 }).$mount('#app');

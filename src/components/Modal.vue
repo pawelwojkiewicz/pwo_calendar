@@ -3,16 +3,17 @@
         <button @click="closeModal" class="modal__close"><font-awesome-icon icon="times" /></button>
         <div class="modal__content">
             <span class="modal__title">
-                              {{modalDay}} {{ moment | moment('MMMM YYYY') }}   
-                              {{loggedUsername}}
+                              {{modalDay}} {{ moment | moment('MMMM YYYY') }}
                     </span>
             <button @click="addTask" class="modal__add-task-btn">
                     <font-awesome-icon icon="plus" class="modal__add-task-icon" />
                     {{$t("addtask")}}
                     </button>
-            <TaskList></TaskList>
-            <Button class="modal__btn" @click.native="post">Zapisz notatki</Button>
-
+            <TaskList v-show="ready" ></TaskList>
+            <div class="modal__spinner">
+                <Spinner v-show="!ready"></Spinner>
+            </div>
+            <Button class="modal__btn" @click.native="post">{{$t("saveNotes")}}</Button>
         </div>
     </div>
 
@@ -22,42 +23,51 @@
 import { mapMutations, mapState, mapActions } from 'vuex';
 import TaskList from '@/components/TaskList.vue';
 import Button from '@/components/Button.vue';
+import Spinner from '@/components/Spinner.vue';
 
 export default {
-    name: 'Modal',
-    components: {
-        TaskList,
-        Button
+  name: 'Modal',
+  components: {
+    TaskList,
+    Button,
+    Spinner,
+  },
+  computed: {
+    ...mapState([
+      'modalDay',
+      'moment',
+      'user',
+      'loggedUsername',
+      'modalId',
+      'taskList',
+      'ready',
+    ]),
+  },
+  methods: {
+    ...mapMutations([
+      'addTask',
+    ]),
+    ...mapActions([
+      'get',
+    ]),
+    post() {
+      this.$store.dispatch('post');
     },
-    computed: {
-        ...mapState([
-            'modalDay',
-            'moment',
-            'user',
-            'loggedUsername',
-            'modalId'
-        ]),
+
+    closeModal() {
+      this.$store.commit('closeModal');
+      const body = document.querySelector('body');
+      const html = document.querySelector('html');
+      body.classList.remove('no-scroll');
+      html.classList.remove('no-scroll');
     },
-    methods: {
-        ...mapMutations([
-            'addTask'
-        ]),
-        post() {
-            this.$store.dispatch('post')
-        },
- 
-        closeModal() {
-            this.$store.commit('closeModal')
-            const body = document.querySelector('body');
-            const html = document.querySelector('html');
-            body.classList.remove('no-scroll');
-            html.classList.remove('no-scroll');
-        }
-    },
-    created() {
-        this.$store.state.modalId =  this.modalDay + '-' + this.moment.format('M-Y')
-    }
-}
+  },
+  created() {
+    this.$store.state.modalId = `${this.modalDay}-${this.moment.format('M-Y')}`;
+    this.get();
+  },
+
+};
 </script>
 
 <style lang="scss" scoped>
@@ -129,6 +139,11 @@ export default {
         margin-right: 10px;
         font-size: 20px;
         color: #21a5b6;
+    }
+    &__spinner {
+        display: flex;
+        width: 100%;
+        justify-content: center;
     }
 }
 

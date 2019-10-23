@@ -27,5 +27,6 @@
     "friday": "FRI",
     "saturday": "SAT",
     "sunday": "SUN",
-    "addtask": "Add task"
+    "addtask": "Add task",
+    "saveNotes": "Save notes"
 }

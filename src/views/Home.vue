@@ -16,7 +16,7 @@
         <transition name="fade" mode="out-in">
             <Overlay v-if="overlay"></Overlay>
         </transition>
-
+ 
         <Footer class="home__footer footer--small"></Footer>
     </div>
 </template>
@@ -34,35 +34,30 @@ import Calendar from '@/components/Calendar.vue';
 import Modal from '@/components/Modal.vue';
 import Overlay from '@/components/Overlay.vue';
 import Button from '@/components/Button.vue';
-
 export default {
-  name: 'Home',
-  components: {
-    Alert,
-    Footer,
-    LangChanger,
-    Logo,
-    Header,
-    Container,
-    Menu,
-    Calendar,
-    Modal,
-    Overlay,
-    Button, 
-  },
-  created() {
-    localStorage.setItem('user', this.loggedUsername);
-  },
-  computed: {
-    ...mapState([
-      'user',
-      'pl',
-      'loginComplete',
-      'modal',
-      'overlay',
-      'menuToggler',
-      'loggedUsername',
-
+    name: 'Home',
+    components: {
+        Alert,
+        Footer,
+        LangChanger,
+        Logo,
+        Header,
+        Container,
+        Menu,
+        Calendar,
+        Modal,
+        Overlay,
+        Button
+    },
+    computed: {
+        ...mapState([
+            'user',
+            'pl',
+            'loginComplete',
+            'modal',
+            'overlay',
+            'menuToggler',
+            'loggedUsername'
         ]),
     },
     methods: {
@@ -71,7 +66,6 @@ export default {
         ]),
         ...mapMutations([
             'openModal',
-
         ]),
     },
     created() {
@@ -89,12 +83,10 @@ export default {
         margin: 40px 0 10px 0;
     }
 }
-
 .modal-trans-enter-active,
 .modal-trans-leave-active {
     transition: opacity .5s, width .5s, height .5s, min-height .5s;
 }
-
 .modal-trans-enter,
 .modal-trans-leave-to {
     opacity: 0;
@@ -102,7 +94,6 @@ export default {
     height: 1%;
     min-height: 1%;
 }
-
 @media screen and (min-width: 768px) {
     .home {
         &__footer {
@@ -111,7 +102,6 @@ export default {
         }
     }
 }
-
 @media screen and (min-width: 1024px) {
     .home {
         &__footer {
@@ -120,7 +110,6 @@ export default {
         }
     }
 }
-
 @media screen and (min-width: 1200px) {
     .home {
         transition: .3s;
