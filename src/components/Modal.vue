@@ -135,7 +135,8 @@ export default {
         position: absolute;
         width: calc(100% - 20px);
         bottom: 20px;
-        height: 65px;
+        height: 55px;
+        font-size: 16px;
          overflow: hidden;
         &-icon {
             margin-left: 5px;
@@ -145,7 +146,7 @@ export default {
             left: 50%;
             top: 50%;
             transform: translate(-50%,-50%);
-            transition: .3s;
+            transition: .2s;
            
             &--hide {
                 transform: translate(-50%,-250%);
@@ -199,9 +200,10 @@ export default {
 @media screen and (min-width: 1200px) {
     .modal {
         &__btn {
-            width: 300px;
-            transform: translateX(-50%);
-            left: 50%;
+            width: 270px;
+            right: 10px;
+            left: auto;
+            transform: none;
             margin-left: 0;
         }
     }
