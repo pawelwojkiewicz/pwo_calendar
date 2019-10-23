@@ -13,7 +13,16 @@
             <div class="modal__spinner">
                 <Spinner v-show="!ready"></Spinner>
             </div>
-            <Button class="modal__btn" @click.native="post">{{$t("saveNotes")}}</Button>
+            <Button class="modal__btn"  @click.native="post">
+                <span class="modal__btn-text" :class="{'modal__btn-text--hide' : success}">
+                    {{$t("saveNotes")}}
+                </span>
+                <span class="modal__btn-text" :class="{'modal__btn-text--success' : !success}">
+                    {{$t("savedNotes")}}
+                    <font-awesome-icon icon="check" class="modal__btn-icon" />
+                </span>
+                
+                </Button>
         </div>
     </div>
 
@@ -41,6 +50,7 @@ export default {
       'modalId',
       'taskList',
       'ready',
+      'success'
     ]),
   },
   methods: {
@@ -125,6 +135,25 @@ export default {
         position: absolute;
         width: calc(100% - 20px);
         bottom: 20px;
+        height: 65px;
+         overflow: hidden;
+        &-icon {
+            margin-left: 5px;
+        }
+        &-text {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            transition: .3s;
+           
+            &--hide {
+                transform: translate(-50%,-250%);
+            }
+            &--success {
+                transform: translate(-50%,150%);
+            }
+        }
     }
     &__add-task-btn {
         background: transparent;

@@ -45,6 +45,7 @@ export default new Vuex.Store({
     taskListModal: [],
     ready: false,
     calendarTasks: [],
+    success: false
 
   },
 
@@ -52,6 +53,7 @@ export default new Vuex.Store({
   mutations: {
     nextMonth: (state) => {
       state.moment = moment(state.moment.add(1, 'M'));
+      
     },
     prevMonth: (state) => {
       state.moment = moment(state.moment.subtract(1, 'M'));
@@ -131,7 +133,13 @@ export default new Vuex.Store({
     addTask: (state) => {
       state.taskList.push({ text: '' });
     },
-
+    buttonSuccess: (state, value) => {
+      state.success = value;
+    },
+    buttonNormal: (value) => {
+      state.success = value
+    }
+    
   },
 
   actions: {
@@ -206,26 +214,34 @@ export default new Vuex.Store({
         commit('logoutCompleteAlert', false);
       }, 2500);
     },
-    post({ state, dispatch }) {
+    post({ state,commit ,dispatch}) {
+      commit('buttonSuccess',false)
       Vue.http.patch(`https://pwo-calendar.firebaseio.com/users/${state.loggedUsername}/tasks/${state.modalId}.json`, { tasklist: state.taskList }).then((data) => {
         dispatch('getAllTasks');
-      });
+    });
+    commit('buttonSuccess',true)
+    setTimeout(() => {
+      commit('buttonSuccess',false)
+      commit('closeModal')
+    }, 1000);
     },
-    get({ state }) {
+    get({state}) {
       state.ready = false;
       Vue.http.get(`https://pwo-calendar.firebaseio.com/users/${state.loggedUsername}/tasks/${state.modalId}.json`).then(data => data.json()).then((data) => {
-        if (data === null) {
-          state.taskList = [];
+        if(data===null ) {
+          state.taskList = []
         } else {
           state.taskList = data.tasklist;
         }
         state.ready = true;
-      });
+    });
     },
-    getAllTasks({ state }) {
-      Vue.http.get(`https://pwo-calendar.firebaseio.com/users/${state.loggedUsername}.json`).then(data => data.json()).then((data) => {
-        state.calendarTasks = data.tasks;
-      });
-    },
+    getAllTasks({state}) {
+      state.ready = false;
+      Vue.http.get(`https://pwo-calendar.firebaseio.com/users/${state.loggedUsername}.json`).then(data => data.json()).then(function (data) {
+          state.calendarTasks = data.tasks;
+        });
+        state.ready = true;
+    }
   },
 });

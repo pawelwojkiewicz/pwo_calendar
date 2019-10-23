@@ -37,7 +37,7 @@ export default {
 .menu {
     background: rgba(0, 0, 0, 0.7);
     position: fixed;
-    z-index: 2000;
+    z-index: 3000;
     top: 0;
     right: 0;
     width: 100%;

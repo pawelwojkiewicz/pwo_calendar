@@ -12,7 +12,9 @@
               </slot>
           </Alert>
       <Container class="login__container">
+       
             <slot>
+                
                 <Logo class="login__logo logo--big"></Logo>
                 <Form class="login__form">
                     <slot>
@@ -75,6 +77,7 @@ export default {
       'registrationComplete',
       'loginFail',
       'logoutComplete',
+      'ready'
     ]),
   },
   methods: {

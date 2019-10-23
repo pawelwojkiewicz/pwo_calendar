@@ -57,7 +57,8 @@ export default {
             'modal',
             'overlay',
             'menuToggler',
-            'loggedUsername'
+            'loggedUsername',
+            'ready'
         ]),
     },
     methods: {

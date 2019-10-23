@@ -1,12 +1,19 @@
 <template>
-    <button type="button" class="btn">
+    <button type="button" class="btn" :class="{'btn--is-success' : success}">
         <slot></slot>
     </button>
 </template>
 
 <script>
+import { mapMutations, mapState, mapActions } from 'vuex';
 export default {
   name: 'Button',
+   computed: {
+    ...mapState([
+      'success'
+    ]),
+  },
+
 };
 </script>
 
@@ -19,6 +26,7 @@ export default {
         text-align: center;
         border: none;
         font-size: 18px;
+        transition: .3s;
         &:hover {
             cursor: pointer;
             background: #369fad;
@@ -28,6 +36,12 @@ export default {
         }
         &--wide {
             width: 100%;
+        }
+        &--is-success {
+            background: #4caf50;
+            &:hover {
+                  background: #4caf50;
+            }
         }
     }
 

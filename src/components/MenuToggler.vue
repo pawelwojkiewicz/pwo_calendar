@@ -28,7 +28,7 @@ export default {
     @import "node_modules/hamburgers/_sass/hamburgers/hamburgers.scss";
 
     .hamburger {
-
+      z-index: 100;
       position: absolute;
       right: 10px;
       &:focus {
@@ -40,7 +40,7 @@ export default {
       }
       &.is-active {
         opacity: 1;
-        z-index: 2000;
+        z-index: 3000;
         .hamburger-inner {
            background-color: #fff;
         &:before,

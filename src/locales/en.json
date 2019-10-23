@@ -28,5 +28,6 @@
     "saturday": "SAT",
     "sunday": "SUN",
     "addtask": "Add task",
-    "saveNotes": "Save notes"
+    "saveNotes": "Save notes",
+    "savedNotes": "Notes has been saved"
 }
