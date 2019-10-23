@@ -17,7 +17,7 @@
         <transition name="fade" mode="out-in">
             <Overlay v-if="overlay"></Overlay>
         </transition>
- 
+
         <Footer class="home__footer footer--small"></Footer>
     </div>
 </template>
@@ -37,40 +37,43 @@ import Overlay from '@/components/Overlay.vue';
 import Button from '@/components/Button.vue';
 
 export default {
-    name: 'Home',
-    components: {
-        Alert,
-        Footer,
-        LangChanger,
-        Logo,
-        Header,
-        Container,
-        Menu,
-        Calendar,
-        Modal,
-        Overlay,
-        Button
-    },
-    computed: {
-        ...mapState([
-            'user',
-            'pl',
-            'loginComplete',
-            'modal',
-            'overlay',
-            'menuToggler',
-            'loggedUsername'
+  name: 'Home',
+  components: {
+    Alert,
+    Footer,
+    LangChanger,
+    Logo,
+    Header,
+    Container,
+    Menu,
+    Calendar,
+    Modal,
+    Overlay,
+    Button, 
+  },
+  created() {
+    localStorage.setItem('user', this.loggedUsername);
+  },
+  computed: {
+    ...mapState([
+      'user',
+      'pl',
+      'loginComplete',
+      'modal',
+      'overlay',
+      'menuToggler',
+      'loggedUsername',
 
-        ]),
-    },
-    methods: {
-        ...mapActions([
-            'logoutComplete',
-        ]),
-        ...mapMutations([
-            'openModal',
-        ]),
-    },
+    ]),
+  },
+  methods: {
+    ...mapActions([
+      'logoutComplete',
+    ]),
+    ...mapMutations([
+      'openModal',
+    ]),
+  },
 };
 </script>
 

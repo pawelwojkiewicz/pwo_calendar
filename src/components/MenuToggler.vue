@@ -7,27 +7,28 @@
 </template>
 
 <script>
-    import { mapMutations, mapState, mapActions } from 'vuex';
-    export default {
-        name: 'MenuToggler',
-         computed: {
-          ...mapState([
-            'menuToggler'
-          ]),
-        },
-         methods: {
-          ...mapMutations([
-            'openToggler',
-          ]),
-        },
-    }
+import { mapMutations, mapState, mapActions } from 'vuex';
+
+export default {
+  name: 'MenuToggler',
+  computed: {
+    ...mapState([
+      'menuToggler',
+    ]),
+  },
+  methods: {
+    ...mapMutations([
+      'openToggler',
+    ]),
+  },
+};
 </script>
 
 <style lang="scss" scoped>
     @import "node_modules/hamburgers/_sass/hamburgers/hamburgers.scss";
 
     .hamburger {
-      
+
       position: absolute;
       right: 10px;
       &:focus {

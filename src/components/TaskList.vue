@@ -10,14 +10,15 @@
 
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
+
 export default {
-    name: 'TaskList',
-    computed: {
-        ...mapState([
-            'taskList'
-        ]),
-    },
-}
+  name: 'TaskList',
+  computed: {
+    ...mapState([
+      'taskList',
+    ]),
+  },
+};
 </script>
 
 <style lang="scss" scoped>

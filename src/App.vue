@@ -7,9 +7,9 @@
 </template>
 
 <script>
-    export default {
+export default {
   created() {
-    this.$moment.locale(localStorage.getItem('lang')|| 'pl');
+    this.$moment.locale(localStorage.getItem('lang') || 'pl');
   },
 };
 

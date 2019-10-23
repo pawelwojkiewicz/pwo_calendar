@@ -19,33 +19,34 @@
 
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
-import moment from 'moment'
+import moment from 'moment';
 import Button from '@/components/Button.vue';
 import MenuToggler from '@/components/MenuToggler.vue';
 import Container from '@/components/Container.vue';
 import Calendar from '@/components/Calendar.vue';
+
 export default {
-    name: 'Header',
-    components: {
-        Button,
-        MenuToggler,
-        Container,
-        Calendar
-    },
-    computed: {
-        ...mapState([
-            'moment',
-        ]),
-    },
-    methods: {
-        ...mapMutations([
-            'prevMonth',
-            'nextMonth'
-        ]),
-    },
+  name: 'Header',
+  components: {
+    Button,
+    MenuToggler,
+    Container,
+    Calendar,
+  },
+  computed: {
+    ...mapState([
+      'moment',
+    ]),
+  },
+  methods: {
+    ...mapMutations([
+      'prevMonth',
+      'nextMonth',
+    ]),
+  },
 
 
-}
+};
 </script>
 
 <style lang="scss" scoped>

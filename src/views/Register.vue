@@ -88,7 +88,7 @@ export default {
       'user',
     ]),
   },
-  
+
   methods: {
     ...mapMutations([
       'clearInputs',

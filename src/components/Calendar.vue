@@ -16,74 +16,72 @@
 
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
-import moment from 'moment'
+import moment from 'moment';
 import { watch } from 'fs';
+
 export default {
-    data() {
-        return {
-            days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-            defaultMoment: new moment(),
-        }
+  data() {
+    return {
+      days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
+      defaultMoment: new moment(),
+    };
+  },
+
+  computed: {
+    ...mapState([
+      'moment',
+    ]),
+
+    today() {
+      return this.defaultMoment.get('date');
+    },
+    currentMonth() {
+      return this.defaultMoment.format('M');
+    },
+    currentYear() {
+      return this.defaultMoment.format('YYYY');
+    },
+    currentDate() {
+      return this.moment.get('date');
+    },
+    firstDays() {
+      console.log(localStorage.getItem('lang'));
+      if (localStorage.getItem('lang') === 'en') {
+        const firstDay = moment(this.moment).subtract((this.currentDate), 'days');
+        return firstDay.weekday();
+      }
+      const firstDay = moment(this.moment).subtract((this.currentDate - 1), 'days');
+      return firstDay.weekday();
+    },
+    checkCurrentDay() {
+      if (this.currentMonth === this.moment.format('M') && this.currentYear === this.moment.format('YYYY')) {
+        return true;
+      }
     },
 
-    computed: {
-        ...mapState([
-            'moment',
-        ]),
-
-        today() {
-            return this.defaultMoment.get('date')
-        },
-        currentMonth() {
-            return this.defaultMoment.format('M')
-        },
-        currentYear() {
-            return this.defaultMoment.format('YYYY')
-        },
-        currentDate() {
-            return this.moment.get('date');
-        },
-        firstDays() {
-            console.log(localStorage.getItem('lang'));
-            if(localStorage.getItem('lang') === 'en') {
-                let firstDay = moment(this.moment).subtract((this.currentDate), 'days');
-                return firstDay.weekday();
-            } else {
-                let firstDay = moment(this.moment).subtract((this.currentDate -1), 'days');
-                return firstDay.weekday();
-            }
-            
-        },
-        checkCurrentDay() {
-            if(this.currentMonth === this.moment.format('M') && this.currentYear === this.moment.format('YYYY')) {
-                return true;
-            };
-        }
-
+  },
+  methods: {
+    ...mapMutations([
+      'nextMonth',
+      'prevMonth',
+    ]),
+    openModal(day) {
+      this.$store.commit('openModal');
+      this.$store.state.modalDay = day;
+      const body = document.querySelector('body');
+      const html = document.querySelector('html');
+      body.classList.add('no-scroll');
+      html.classList.add('no-scroll');
+      console.log(body);
     },
-    methods: {
-        ...mapMutations([
-            'nextMonth',
-            'prevMonth'
-        ]),
-        openModal(day) {
-            this.$store.commit('openModal');
-            this.$store.state.modalDay = day;
-            const body = document.querySelector('body');
-            const html = document.querySelector('html');
-            body.classList.add('no-scroll');
-            html.classList.add('no-scroll');
-            console.log(body);
-            
-        }
+  },
+  watch: {
+    moment() {
+      this.checkCurrentDay;
     },
-    watch: {
-        moment: function() {
-             this.checkCurrentDay
-        }
-    }
-    
-}
+  },
+
+};
 </script>
 
 <style lang="scss" scoped>

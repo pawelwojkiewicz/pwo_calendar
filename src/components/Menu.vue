@@ -8,17 +8,18 @@
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
 import LangChanger from '@/components/LangChanger.vue';
+
 export default {
-    name: 'Menu',
-    components: {
-        LangChanger
-    },
-    computed: {
-        ...mapState([
-            'menuToggler'
-        ]),
-    },
-}
+  name: 'Menu',
+  components: {
+    LangChanger,
+  },
+  computed: {
+    ...mapState([
+      'menuToggler',
+    ]),
+  },
+};
 </script>
 
 <style lang="scss" scoped>

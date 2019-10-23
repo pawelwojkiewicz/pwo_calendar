@@ -6,14 +6,15 @@
 
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
-    export default {
-        name: 'Overlay',
-        methods: {
-        closeMenu() {
-            this.$store.commit('closeMenu');
-        }
+
+export default {
+  name: 'Overlay',
+  methods: {
+    closeMenu() {
+      this.$store.commit('closeMenu');
     },
-    }
+  },
+};
 </script>
 
 <style lang="scss" scoped>

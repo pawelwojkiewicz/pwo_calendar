@@ -7,21 +7,22 @@
 
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
+
 export default {
-       computed: {
+  computed: {
     ...mapState([
-      'moment'
+      'moment',
     ]),
   },
   watch: {
     '$i18n.locale': function (newLanguage) {
-        this.moment.locale(newLanguage)
-        localStorage.setItem('lang', newLanguage);
+      this.moment.locale(newLanguage);
+      localStorage.setItem('lang', newLanguage);
     },
   },
   created() {
-      this.moment.locale(localStorage.getItem('lang'))
-  }
+    this.moment.locale(localStorage.getItem('lang'));
+  },
 };
 </script>
 
