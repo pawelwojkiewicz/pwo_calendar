@@ -1,11 +1,14 @@
 <template>
     <div class="menu" :class="{'menu__open' : menuToggler}">
         <div class="menu__content">
-            <LangChanger class="menu__lang-changer"></LangChanger>
-            <span class="menu__user">Witaj, {{loggedUsername}}!</span>
+            <div class="menu__toolbar">
+                <LangChanger class="menu__lang-changer"></LangChanger>
+            </div>
+    
+            <span class="menu__user">{{$t("hello")}}, {{loggedUsername}}!</span>
             <span class="menu__date-day">{{defaultMoment.format('dddd,')}}</span>
             <span class="menu__date-month">{{defaultMoment.format('D MMMM')}}</span>
-            <span class="menu__tasks-title">Zadania na dziś:</span>
+            <span class="menu__tasks-title">{{$t("tasksfortoday")}}:</span>
             <ul class="menu__tasks">
                 <li class="menu__tasks-element">Pranie</li>
                 <li class="menu__tasks-element">Sprzątanie</li>
@@ -64,8 +67,13 @@ export default {
     &__open {
         transform: translateX(0);
     }
+    &__toolbar {
+        background: rgba(255, 255, 255, 0.09);
+        margin-bottom: 25px;
+        padding: 10px;
+    }
     &__content {
-        padding: 80px 15px 0px 15px
+        padding: 65px 15px 0px 15px
     }
     &__lang-changer {
         top: 78px;
@@ -106,10 +114,10 @@ export default {
             -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
             -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
             box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
-            padding: 3px 3px 3px 5px;
+            padding: 6px 5px 6px 5px;
             background: #000;
             font-size: 14px;
-            margin: 3px 0;
+            margin: 4px 0;
             background: #bd5959;
             border-radius: 3px;
         }
@@ -159,7 +167,7 @@ export default {
         &__date-month {
             font-size: 32px;
         }
-        &__tasks-title {  
+        &__tasks-title {
             margin-top: 50px;
         }
     }

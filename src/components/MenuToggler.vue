@@ -30,7 +30,7 @@ export default {
     .hamburger {
       z-index: 100;
       position: absolute;
-      right: 0;
+      right: 10px;
       &:focus {
         border: none;
         outline: none;

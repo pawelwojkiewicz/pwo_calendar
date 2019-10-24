@@ -28,9 +28,7 @@ export default {
 
 <style lang="scss" scoped>
     .lang-changer {
-        position: absolute;
-        right: 10px;
-        top: 10px;
+        width: 55px;
         &__select {
             background: transparent;
             border: none;

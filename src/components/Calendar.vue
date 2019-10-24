@@ -167,15 +167,16 @@ export default {
     &__element-list {
         list-style: none;
         font-weight: 500;
-        font-size: 13px;
+        font-size: 9px;
         font-family: 'Roboto', sans-serif;
         padding: 0;
         text-align: left;
-        padding-top: 25px;
+        padding-top: 20px;
+        overflow: hidden;
         &-item {
             background: #bd5959;
-            margin: 3px;
-            padding: 2px;
+            margin: 1px 2px;
+            padding: 1.5px;
             border-radius: 3px;
             -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
             -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
@@ -200,6 +201,12 @@ export default {
                 font-size: 14px;
                 margin-top: 5px;
             }
+        }
+        &__element-list {
+              font-size: 13px;
+              &-item {
+                   margin: 3px;
+              }
         }
     }
 }

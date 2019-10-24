@@ -30,5 +30,7 @@
     "polish": "pl",
     "addtask": "Dodaj zadanie",
     "saveNotes": "Zapisz notatki",
-    "savedNotes": "Notatki zostały zapisane"
+    "savedNotes": "Notatki zostały zapisane",
+    "hello": "Witaj",
+    "tasksfortoday": "Zadania na dziś"
 }

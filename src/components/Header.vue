@@ -56,6 +56,7 @@ export default {
     padding: 20px 0 20px 10px;
     box-sizing: border-box;
     &__btn {
+        box-shadow: none;
         padding: 0;
         background: transparent;
         color: #21a5b6;
@@ -103,6 +104,7 @@ export default {
             margin: 0 50px;
         }
         &__btn {
+            box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
             width: 220px;
             padding: 20px;
             display: flex;
