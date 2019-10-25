@@ -1,15 +1,16 @@
 <template>
     <ul class="task-list">
         <li class="task-list__element" v-for="(taskItem,index) in taskList" :key="'task-item' + index">
-            <input class="inp-cbx" :id="'task-item' + index" type="checkbox" style="display: none;" />
-            <label class="cbx" :for="'task-item' + index">
+            <input class="inp-cbx" :id="'task-item' + index" type="checkbox" v-model="taskItem.checkedTask" /> 
+            
+            <label class="cbx" :for="'task-item' + index" >
                     <span>
                         <svg width="12px" height="10px" viewbox="0 0 12 10">
                             <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
                         </svg>
                     </span>
             </label>
-            <input type="text" class="task-list__input" placeholder="Wpisz notatkę..." v-model="taskItem.text">
+            <input type="text" class="task-list__input" placeholder="Wpisz notatkę..." v-model="taskItem.text" :class="{'task-list__input--checked' : taskItem.checkedTask}">
             <font-awesome-icon icon="times" class="task-list__icon" @click="deleteTask(taskItem)" />
         </li>
     
@@ -67,6 +68,9 @@ export default {
             color: rgba(255, 255, 255, 0.425);
             font-size: 18px;
         }
+        &--checked {
+            text-decoration: line-through;
+        }
     }
     &__icon {
         color: #fff;
@@ -80,6 +84,10 @@ export default {
         max-height: 100%;
         overflow: unset;
     }
+}
+
+.inp-cbx {
+    opacity: 0;
 }
 
 .cbx {

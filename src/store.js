@@ -54,7 +54,8 @@ export default new Vuex.Store({
     headerBackground : '#2f2f2f',
     color: '#fff',
     menuBackground : 'rgba(29, 29, 29, 0.7)',
-    badgeQuantity: ''
+    badgeQuantity: '',
+    checkboxChecked: false
   },
 
 

@@ -11,7 +11,7 @@
             <li class="calendar__month-list-element" @click="openModal(day)" v-for="(day,index) in moment.daysInMonth()" :key="index+'day'" :class="{'calendar__month-list-element--today': day === today && checkCurrentDay, 'calendar__month-list-element--today-white' : !nightMode &&  day === today && checkCurrentDay, 'calendar__month-list-element--white' : !nightMode}">
                 <span class="calendar__month-list-text">{{day}}</span>
                 <ul class="calendar__element-list">
-                    <li class="calendar__element-list-item" v-for="(task,i) in allTasks(day)" :key="i">
+                    <li class="calendar__element-list-item" :class="{'calendar__element-list-item--checked':  task.checkedTask} " v-for="(task,i) in allTasks(day)" :key="i">
                         {{task.text}}
                     </li>
                 </ul>
@@ -201,6 +201,11 @@ export default {
             -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
             -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
             box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
+            &--checked {
+                text-decoration: line-through;
+                opacity: 0.7;
+                background: #607d8b
+            }
         }
     }
 }
