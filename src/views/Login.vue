@@ -1,6 +1,6 @@
 <template>
-    <div class="login">
-        <LangChanger></LangChanger>
+    <div class="login" :class="{'login--white' : !nightMode}">
+        <LangChanger class="lang-changer--absolute"></LangChanger>
           <Alert v-show="registrationComplete">
               <slot>
                   {{$t("alertRegistration")}}
@@ -77,7 +77,8 @@ export default {
       'registrationComplete',
       'loginFail',
       'logoutComplete',
-      'ready'
+      'ready',
+      'nightMode'
     ]),
   },
   methods: {
@@ -96,6 +97,9 @@ export default {
 <style lang="scss" scoped>
    .login {
         background: #464646;
+        &--white {
+            background: #fff;
+        }
        &__container {
         display: flex;
         flex-direction: column;

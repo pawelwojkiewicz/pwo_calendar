@@ -1,7 +1,8 @@
 <template>
-    <div class="menu" :class="{'menu__open' : menuToggler}">
+    <div class="menu" :style="{background: menuBackground}" :class="{'menu__open' : menuToggler}">
         <div class="menu__content">
             <div class="menu__toolbar">
+                <Switcher></Switcher>
                 <LangChanger class="menu__lang-changer"></LangChanger>
             </div>
     
@@ -9,11 +10,9 @@
             <span class="menu__date-day">{{defaultMoment.format('dddd,')}}</span>
             <span class="menu__date-month">{{defaultMoment.format('D MMMM')}}</span>
             <span class="menu__tasks-title">{{$t("tasksfortoday")}}:</span>
+            <span class="menu__tasks-title--empty" v-show="emptyTask">{{$t("emptytasks")}}</span>
             <ul class="menu__tasks">
-                <li class="menu__tasks-element">Pranie</li>
-                <li class="menu__tasks-element">Sprzątanie</li>
-                <li class="menu__tasks-element">Sprzątanie</li>
-                <li class="menu__tasks-element">Sprzątanie</li>
+                <li class="menu__tasks-element" v-for="(todayTask,index) in todayTasks" >{{todayTask.text}}</li>
             </ul>
             <router-link @click.native="logoutComplete" class="menu__logout-btn btn btn--wide" tag="button" to="/login"> {{$t("logOut")}} </router-link>
         </div>
@@ -24,12 +23,14 @@
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
 import LangChanger from '@/components/LangChanger.vue';
+import Switcher from '@/components/Switcher.vue';
 import moment from 'moment';
 
 export default {
     name: 'Menu',
     components: {
         LangChanger,
+        Switcher
     },
     data() {
         return {
@@ -41,14 +42,28 @@ export default {
             'menuToggler',
             'users',
             'loggedUsername',
+            'todayTasksId',
+            'todayTasks',
+            'emptyTask', 
+            'menuBackground'
         ]),
 
     },
     methods: {
         ...mapActions([
             'logoutComplete',
+            'getTodayTasks'
         ]),
 
+    },
+     watch: {
+    '$i18n.locale': function (newLanguage) {
+      this.defaultMoment.locale(newLanguage);
+    },
+  },
+   created() {
+        this.$store.state.todayTasksId = `${this.defaultMoment.format('D-M-Y')}`;
+        this.getTodayTasks()
     },
 };
 </script>
@@ -63,11 +78,16 @@ export default {
     width: 100%;
     height: 100vh;
     transform: translateX(100%);
-    transition: .3s;
+    transition: transform .3s;
     &__open {
         transform: translateX(0);
+        overflow: auto;
     }
     &__toolbar {
+        border-radius: 3px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         background: rgba(255, 255, 255, 0.09);
         margin-bottom: 25px;
         padding: 10px;
@@ -104,6 +124,12 @@ export default {
         font-weight: 600;
         margin-top: 30px;
         display: block;
+        &--empty {
+            font-weight: 300;
+            font-size: 15px;
+            margin-top: 10px;
+            display: block;
+        }
     }
     &__tasks {
         list-style: none;
@@ -111,6 +137,7 @@ export default {
         margin: 0;
         padding: 10px 0 0 0px;
         &-element {
+            color: #fff;
             -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
             -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
             box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
@@ -132,6 +159,11 @@ export default {
         &__logout-btn {
             position: relative;
             bottom: auto;
+            width: 100%;
+            margin: 20px 0 20px 0;
+        }
+        &__toolbar {
+            margin: 20px 0 40px 0;
         }
     }
 }
@@ -146,6 +178,8 @@ export default {
         &__logout-btn {
             position: absolute;
             bottom: 20px;
+            width: 90%;
+            margin-left: 5%;
         }
         &__tasks-element {
             margin: 8px 0;

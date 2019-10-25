@@ -1,6 +1,6 @@
 <template>
      <div class="register">
-         <LangChanger></LangChanger>
+         <LangChanger class="lang-changer--absolute"></LangChanger>
          <Container class="register__container">
              <slot>
         <Logo class="logo--big"></Logo>

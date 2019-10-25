@@ -1,31 +1,30 @@
 <template>
-    <div class="modal">
-        <button @click="closeModal" class="modal__close"><font-awesome-icon icon="times" /></button>
+    <div class="modal" :class="{'modal--white' : !nightMode}">
+        <button @click="closeModal" class="modal__close" :class="{'modal__close--white' : !nightMode}" ><font-awesome-icon icon="times" /></button>
         <div class="modal__content">
             <span class="modal__title">
-                              {{modalDay}} {{ moment | moment('MMMM YYYY') }}
-                    </span>
+                                  {{modalDay}} {{ moment | moment('MMMM YYYY') }}
+                        </span>
             <button @click="addTask" class="modal__add-task-btn">
-                    <font-awesome-icon icon="plus" class="modal__add-task-icon" />
-                    {{$t("addtask")}}
-                    </button>
-            <TaskList v-show="ready" ></TaskList>
+                        <font-awesome-icon icon="plus" class="modal__add-task-icon" />
+                        {{$t("addtask")}}
+                        </button>
+            <TaskList v-show="ready"></TaskList>
             <div class="modal__spinner">
                 <Spinner v-show="!ready"></Spinner>
             </div>
-            <Button class="modal__btn"  @click.native="post">
-                <span class="modal__btn-text" :class="{'modal__btn-text--hide' : success}">
-                    {{$t("saveNotes")}}
-                </span>
-                <span class="modal__btn-text" :class="{'modal__btn-text--success' : !success}">
-                    {{$t("savedNotes")}}
-                    <font-awesome-icon icon="check" class="modal__btn-icon" />
-                </span>
-                
-                </Button>
+            <Button class="modal__btn" @click.native="post">
+                    <span class="modal__btn-text" :class="{'modal__btn-text--hide' : success}">
+                        {{$t("saveNotes")}}
+                    </span>
+                    <span class="modal__btn-text" :class="{'modal__btn-text--success' : !success}">
+                        {{$t("savedNotes")}}
+                        <font-awesome-icon icon="check" class="modal__btn-icon" />
+                    </span>
+                    
+                    </Button>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -35,47 +34,48 @@ import Button from '@/components/Button.vue';
 import Spinner from '@/components/Spinner.vue';
 
 export default {
-  name: 'Modal',
-  components: {
-    TaskList,
-    Button,
-    Spinner,
-  },
-  computed: {
-    ...mapState([
-      'modalDay',
-      'moment',
-      'user',
-      'loggedUsername',
-      'modalId',
-      'taskList',
-      'ready',
-      'success'
-    ]),
-  },
-  methods: {
-    ...mapMutations([
-      'addTask',
-    ]),
-    ...mapActions([
-      'get',
-    ]),
-    post() {
-      this.$store.dispatch('post');
+    name: 'Modal',
+    components: {
+        TaskList,
+        Button,
+        Spinner,
     },
+    computed: {
+        ...mapState([
+            'modalDay',
+            'moment',
+            'user',
+            'loggedUsername',
+            'modalId',
+            'taskList',
+            'ready',
+            'success',
+            'nightMode'
+        ]),
+    },
+    methods: {
+        ...mapMutations([
+            'addTask',
+        ]),
+        ...mapActions([
+            'get',
+        ]),
+        post() {
+            this.$store.dispatch('post');
+        },
 
-    closeModal() {
-      this.$store.commit('closeModal');
-      const body = document.querySelector('body');
-      const html = document.querySelector('html');
-      body.classList.remove('no-scroll');
-      html.classList.remove('no-scroll');
+        closeModal() {
+            const body = document.querySelector('body');
+            const html = document.querySelector('html');
+            this.$store.commit('closeModal');
+            body.classList.remove('no-scroll');
+            html.classList.remove('no-scroll');
+        },
     },
-  },
-  created() {
-    this.$store.state.modalId = `${this.modalDay}-${this.moment.format('M-Y')}`;
-    this.get();
-  },
+    created() {
+        this.$store.state.modalId = `${this.modalDay}-${this.moment.format('M-Y')}`;
+        this.get();
+    },
 
 };
 </script>
@@ -96,6 +96,9 @@ export default {
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
+    &--white {
+        background: #ffffff;
+    }
     &__close {
         padding-right: 10px;
         padding-top: 10px;
@@ -104,13 +107,16 @@ export default {
         justify-content: flex-end;
         border: none;
         box-shadow: none;
-        color: #fff;
         position: absolute;
         width: 100%;
+        color: #fff;
         font-size: 30px;
         cursor: pointer;
         &:focus {
             outline: none;
+        }
+        &--white {
+            color: #5f5f5f;
         }
     }
     &__content {
@@ -137,7 +143,7 @@ export default {
         bottom: 20px;
         height: 55px;
         font-size: 16px;
-         overflow: hidden;
+        overflow: hidden;
         &-icon {
             margin-left: 5px;
         }
@@ -145,14 +151,13 @@ export default {
             position: absolute;
             left: 50%;
             top: 50%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
             transition: .2s;
-           
             &--hide {
-                transform: translate(-50%,-250%);
+                transform: translate(-50%, -250%);
             }
             &--success {
-                transform: translate(-50%,150%);
+                transform: translate(-50%, 150%);
             }
         }
     }

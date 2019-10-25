@@ -5,15 +5,15 @@
                 {{$t(`${day}`)}}
             </li>
         </ul>
-
+    
         <ul class="calendar__month-list">
-            <li class="calendar__month-list-element calendar__month-list-element--empty" v-for="(day,index) in firstDays" :key="'siema'+ index"></li>
-            <li class="calendar__month-list-element" @click="openModal(day)" v-for="(day,index) in moment.daysInMonth()" :key="index+'day'" :class="{'calendar__month-list-element--today': day === today && checkCurrentDay}">
+            <li class="calendar__month-list-element calendar__month-list-element--empty" :class="{'calendar__month-list-element--white' : !nightMode}" v-for="(day,index) in firstDays" :key="'siema'+ index"></li>
+            <li class="calendar__month-list-element" @click="openModal(day)" v-for="(day,index) in moment.daysInMonth()" :key="index+'day'" :class="{'calendar__month-list-element--today': day === today && checkCurrentDay, 'calendar__month-list-element--today-white' : !nightMode &&  day === today && checkCurrentDay, 'calendar__month-list-element--white' : !nightMode}">
                 <span class="calendar__month-list-text">{{day}}</span>
                 <ul class="calendar__element-list">
-                        <li class="calendar__element-list-item" v-for="(task,i) in allTasks(day)" :key="i">
-                            {{task.text}}
-                        </li>
+                    <li class="calendar__element-list-item" v-for="(task,i) in allTasks(day)" :key="i">
+                        {{task.text}}
+                    </li>
                 </ul>
             </li>
         </ul>
@@ -26,76 +26,79 @@ import moment from 'moment';
 import { watch } from 'fs';
 
 export default {
-  data() {
-    return {
-      days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-      defaultMoment: new moment(),
-    };
-  },
-
-  computed: {
-    ...mapState([
-      'moment',
-      'calendarTasks',
-      'modalDay',
-    ]),
-
-    today() {
-      return this.defaultMoment.get('date');
-    },
-    currentMonth() {
-      return this.defaultMoment.format('M');
-    },
-    currentYear() {
-      return this.defaultMoment.format('YYYY');
-    },
-    currentDate() {
-      return this.moment.get('date');
-    },
-    firstDays() {
-      if (localStorage.getItem('lang') === 'en') {
-        const firstDay = moment(this.moment).subtract((this.currentDate), 'days');
-        return firstDay.weekday();
-      }
-      const firstDay = moment(this.moment).subtract((this.currentDate - 1), 'days');
-      return firstDay.weekday();
-    },
-    checkCurrentDay() {
-      if (this.currentMonth === this.moment.format('M') && this.currentYear === this.moment.format('YYYY')) {
-        return true;
-      }
+    data() {
+        return {
+            days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
+            defaultMoment: new moment(),
+        };
     },
 
-  },
-  methods: {
-    ...mapMutations([
-      'nextMonth',
-      'prevMonth',
-    ]),
-    ...mapActions([
-      'getAllTasks',
-    ]),
-    openModal(day) {
-      this.$store.commit('openModal');
-      this.$store.state.modalDay = day;
-      const body = document.querySelector('body');
-      const html = document.querySelector('html');
-      body.classList.add('no-scroll');
-      html.classList.add('no-scroll');
+    computed: {
+        ...mapState([
+            'moment',
+            'calendarTasks',
+            'modalDay',
+            'borderColor',
+            'nightMode'
+        ]),
+
+        today() {
+            return this.defaultMoment.get('date');
+        },
+        currentMonth() {
+            return this.defaultMoment.format('M');
+        },
+        currentYear() {
+            return this.defaultMoment.format('YYYY');
+        },
+        currentDate() {
+            return this.moment.get('date');
+        },
+        firstDays() {
+            if (localStorage.getItem('lang') === 'en') {
+                const firstDay = moment(this.moment).subtract((this.currentDate), 'days');
+                return firstDay.weekday();
+            }
+            const firstDay = moment(this.moment).subtract((this.currentDate - 1), 'days');
+            return firstDay.weekday();
+        },
+        checkCurrentDay() {
+            if (this.currentMonth === this.moment.format('M') && this.currentYear === this.moment.format('YYYY')) {
+                return true;
+            }
+        },
+
     },
-    calendarBox(day) {
-      return `${day}-${this.moment.format('M-Y')}`;
+    methods: {
+        ...mapMutations([
+            'nextMonth',
+            'prevMonth',
+        ]),
+        ...mapActions([
+            'getAllTasks',
+        ]),
+        openModal(day) {
+            const body = document.querySelector('body');
+            const html = document.querySelector('html');
+            this.$store.commit('openModal');
+            this.$store.state.modalDay = day;
+            body.classList.add('no-scroll');
+            html.classList.add('no-scroll');
+        },
+        calendarBox(day) {
+            return `${day}-${this.moment.format('M-Y')}`;
+        },
+        allTasks(day) {
+            if (typeof this.calendarTasks[this.calendarBox(day)] !== 'undefined') {
+                return this.calendarTasks[this.calendarBox(day)].tasklist;
+            }
+            return [];
+        },
     },
-    allTasks(day) {
-      if (typeof this.calendarTasks[this.calendarBox(day)] !== 'undefined') {
-        return this.calendarTasks[this.calendarBox(day)].tasklist;
-      }
-      return [];
+    
+    created() {
+        this.getAllTasks();
     },
-  },
-  created() {
-    this.getAllTasks();
-  },
 };
 </script>
 
@@ -123,12 +126,11 @@ export default {
         justify-content: flex-start;
         padding: 0;
         flex-wrap: wrap;
-        max-width: 1240px;
+        max-width: 1400px;
         margin: 0 auto;
         &-element {
             overflow: hidden;
             font-weight: 700;
-            color: #fff;
             cursor: pointer;
             position: relative;
             width: calc(100%/7 - 1px);
@@ -155,6 +157,23 @@ export default {
             &--today {
                 background: #333333;
             }
+            &--today-white {
+                background: rgb(243, 246, 248);
+            }
+            &--white {
+                border: 1px solid #d6d6d6;
+                border-top: none;
+                border-right: none;
+                &:hover {
+                    background: rgb(243, 246, 248);
+                }
+                &:nth-child(-n+7) {
+                    border-top: 1px solid #d6d6d6;
+                }
+                &:last-child {
+                    border-right: 1px solid #d6d6d6;
+                }
+            }
         }
         &-text {
             position: absolute;
@@ -174,6 +193,7 @@ export default {
         padding-top: 20px;
         overflow: hidden;
         &-item {
+            color: #fff;
             background: #bd5959;
             margin: 1px 2px;
             padding: 1.5px;
@@ -203,10 +223,11 @@ export default {
             }
         }
         &__element-list {
-              font-size: 13px;
-              &-item {
-                   margin: 3px;
-              }
+            font-size: 13px;
+            padding-top: 26px;
+            &-item {
+                margin: 3px;
+            }
         }
     }
 }
@@ -225,15 +246,27 @@ export default {
     .calendar {
         &__month-list {
             &-element {
-                height: 160px;
+                height: 180px;
                 width: calc(100%/7 - 4px);
                 border: 1px solid #333333;
                 margin: 1px;
+                &--white {
+                    border: 1px solid #d6d6d6;
+                }
             }
         }
         &__container {
             max-width: 1260px;
             margin: 0 auto;
+        }
+        &__element-list {
+            &-item {
+                -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.5);
+                box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.5);
+                font-size: 14px;
+                padding: 3px 5px;
+                margin: 4px 3px;
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :style="{background: background, color: color}">
      <transition name="fade" mode="out-in">
     <router-view/>
     </transition>
@@ -7,10 +7,17 @@
 </template>
 
 <script>
+import { mapGetters, mapState} from 'vuex';
 export default {
   created() {
     this.$moment.locale(localStorage.getItem('lang') || 'pl');
   },
+   computed: {
+      ...mapState([
+            'background',
+            'color'
+        ]),
+    },
 };
 
 </script>
@@ -21,8 +28,8 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
 @import "vue-select/src/scss/vue-select.scss";
 body {
-  background: #464646;
-  color: #fff;
+  background: rgb(70, 70, 70);
+  height: 100%;
    font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -31,6 +38,12 @@ body {
   overflow-x: hidden;
   padding: 0;
   box-sizing: border-box;
+}
+
+.nightmode {
+  &--disabled {
+    background: #fff;
+  }
 }
 
 html,
@@ -57,7 +70,15 @@ body {
 input,
 button {
    font-family: 'Montserrat', sans-serif;
-   color: #fff;
+   
+}
+
+
+input {
+  color: inherit;
+}
+button {
+  color: #fff;
 }
 
 a {

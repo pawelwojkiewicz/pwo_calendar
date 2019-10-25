@@ -32,5 +32,6 @@
     "saveNotes": "Zapisz notatki",
     "savedNotes": "Notatki zostały zapisane",
     "hello": "Witaj",
-    "tasksfortoday": "Zadania na dziś"
+    "tasksfortoday": "Zadania na dziś",
+    "emptytasks": "Nie masz jeszcze na dziś nic zaplanowanego"
 }

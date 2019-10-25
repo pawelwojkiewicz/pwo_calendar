@@ -31,5 +31,6 @@
     "saveNotes": "Save notes",
     "savedNotes": "Notes has been saved",
     "hello": "Hello",
-    "tasksfortoday": "Tasks for today"
+    "tasksfortoday": "Tasks for today",
+    "emptytasks": "You don't have any task yet"
 }

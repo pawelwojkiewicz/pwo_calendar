@@ -1,5 +1,5 @@
 <template>
-    <div class="header">
+    <div class="header" :style="{background:headerBackground}">
         <Container class="header__container">
             <Button class="header__btn" @click.native="prevMonth">
                     <slot><font-awesome-icon class="header__btn-icon header__btn-icon--left " icon="chevron-left" /></slot>
@@ -36,6 +36,7 @@ export default {
   computed: {
     ...mapState([
       'moment',
+      'headerBackground'
     ]),
   },
   methods: {
@@ -52,7 +53,6 @@ export default {
 <style lang="scss" scoped>
 .header {
     width: 100%;
-    background: #2f2f2f;
     padding: 20px 0 20px 10px;
     box-sizing: border-box;
     &__btn {

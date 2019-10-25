@@ -26,7 +26,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .lang-changer {
         width: 55px;
         &__select {
@@ -45,6 +45,21 @@ export default {
                 color: #fff;
             }
         }
+        &--absolute {
+          position: absolute;
+          right: 10px; 
+          top: 10px;
+        }
+    }
+    .vs__selected {
+      color: inherit!important;
+    }
+    .vs__dropdown-menu {
+      color: inherit!important;
+    }
+
+    .vs__dropdown-option {
+       color: inherit!important;
     }
 
 </style>

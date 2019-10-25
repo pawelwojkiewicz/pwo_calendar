@@ -45,8 +45,16 @@ export default new Vuex.Store({
     taskListModal: [],
     ready: false,
     calendarTasks: [],
-    success: false
-
+    success: false,
+    nightMode: true,
+    todayTasksId: '',
+    todayTasks: '',
+    emptyTask: false,
+    background : '#464646',
+    headerBackground : '#2f2f2f',
+    color: '#fff',
+    menuBackground : 'rgba(29, 29, 29, 0.7)',
+    badgeQuantity: ''
   },
 
 
@@ -101,6 +109,7 @@ export default new Vuex.Store({
       state.logoutComplete = true;
       state.menuToggler = false;
       state.overlay = false;
+      state.calendarTasks = []
     },
 
     // Clear Inputs
@@ -138,8 +147,27 @@ export default new Vuex.Store({
     },
     buttonNormal: (value) => {
       state.success = value
+    },
+    changeMode: (state) => {
+      state.nightMode = !state.nightMode
+      
+    },
+    nightModeEnabled: (state) => {
+      state.nightMode = true;
+      state.background = '#464646'
+        state.headerBackground = '#2f2f2f'
+        state.color = '#fff';
+        state.menuBackground =  'rgba(29, 29, 29, 0.7)'
+    },
+
+    nightModeDisabled: (state) => {
+      state.nightMode = false;
+      state.color = 'rgb(92, 92, 92)';
+      state.background = '#ffffff'
+      state.headerBackground = '#f3f6f8'
+      state.menuBackground =  'rgba(255, 255, 255, 0.91)'
     }
-    
+
   },
 
   actions: {
@@ -180,7 +208,9 @@ export default new Vuex.Store({
         commit('loginFail', true);
         return;
       }
-      Vue.http.get(`https://pwo-calendar.firebaseio.com/users/${state.user.username}.json`).then(data => data.json()).then((data) => {
+      localStorage.setItem('user', state.user.username);
+
+      Vue.http.get(`https://pwo-calendar.firebaseio.com/users/${this.state.user.username}.json`).then(data => data.json()).then((data) => {
         if (data === null) {
           commit('loginFail', true);
           return;
@@ -188,7 +218,7 @@ export default new Vuex.Store({
         state.users = data;
         const passwordHash = require('password-hash');
         if (state.user.username === state.users.username && passwordHash.verify(`${state.user.password}`, state.users.password)) {
-          localStorage.setItem('user', state.user.username);
+   
 
           router.push({ path: '/' });
           dispatch('loginCompleteAlert');
@@ -203,7 +233,7 @@ export default new Vuex.Store({
       setTimeout(() => {
         commit('loginComplete', false);
       }, 2500);
-      console.log(state.loggedUsername);
+
     },
     // Logout Complete
     logoutComplete({ commit }) {
@@ -218,6 +248,8 @@ export default new Vuex.Store({
       commit('buttonSuccess',false)
       Vue.http.patch(`https://pwo-calendar.firebaseio.com/users/${state.loggedUsername}/tasks/${state.modalId}.json`, { tasklist: state.taskList }).then((data) => {
         dispatch('getAllTasks');
+        dispatch('getTodayTasks');
+       
     });
     commit('buttonSuccess',true)
     setTimeout(() => {
@@ -239,9 +271,49 @@ export default new Vuex.Store({
     getAllTasks({state}) {
       state.ready = false;
       Vue.http.get(`https://pwo-calendar.firebaseio.com/users/${state.loggedUsername}.json`).then(data => data.json()).then(function (data) {
-          state.calendarTasks = data.tasks;
+          if(data.tasks === undefined) {
+            state.calendarTasks = []
+          } else {
+            state.calendarTasks = data.tasks;
+          }
+      // if(data === 'undefined' || data === null ) {
+          //   return [];
+          // } else {
+          //   state.calendarTasks = data.tasks;
+          // }
+        
         });
         state.ready = true;
+    },
+    getTodayTasks({state}) {
+      state.ready = false;
+      Vue.http.get(`https://pwo-calendar.firebaseio.com/users/${state.loggedUsername}/tasks/${state.todayTasksId}.json`).then(data => data.json()).then(function (data) {
+          if(data === null) { 
+            state.todayTasks = []
+            state.emptyTask = true;
+          } else {
+            state.todayTasks = data.tasklist;
+            state.emptyTask = false;
+            state.badgeQuantity = state.todayTasks.length
+            console.log(state.badgeQuantity)
+          }
+        });
+        state.ready = true;
+    },
+    toggleNightMode({commit,state},nightMode) {
+      if(typeof nightMode === "undefined") {
+        nightMode = !state.nightMode
+      }
+      else if(typeof nightMode === 'string') {
+        nightMode = ("true" === nightMode) ? true : false;
+      }
+      if(nightMode) {
+        commit('nightModeEnabled')
+        
+      } else {
+        commit('nightModeDisabled')
+      }
+      localStorage.setItem('nightmode', nightMode);
     }
   },
 });

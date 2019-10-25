@@ -3,8 +3,8 @@
         <div class="alert">
             <Logo class="logo--small"></Logo>
             <span class="alert__text">
-                <slot></slot>
-            </span>
+                    <slot></slot>
+                </span>
         </div>
     </transition>
 </template>
@@ -22,6 +22,8 @@ export default {
 
 <style lang="scss">
 .alert {
+    border-radius: 3px;
+ 
     box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
@@ -30,7 +32,7 @@ export default {
     justify-content: center;
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 95%; 
     text-align: center;
     background: #b7e6c2;
     border: 1px solid #c3e6cb;
