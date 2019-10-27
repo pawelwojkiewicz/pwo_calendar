@@ -62,6 +62,11 @@ export default {
         ]),
         post() {
             this.$store.dispatch('post');
+            const body = document.querySelector('body');
+            const html = document.querySelector('html');
+            this.$store.commit('closeModal');
+            body.classList.remove('no-scroll');
+            html.classList.remove('no-scroll');
         },
 
         closeModal() {

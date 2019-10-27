@@ -12,7 +12,7 @@
             <span class="menu__tasks-title">{{$t("tasksfortoday")}}:</span>
             <span class="menu__tasks-title--empty" v-show="emptyTask">{{$t("emptytasks")}}</span>
             <ul class="menu__tasks">
-                <li class="menu__tasks-element" v-for="(todayTask,index) in todayTasks" :class="{'menu__tasks-element--checked' : todayTask.checkedTask} "  >{{todayTask.text}}</li>
+                <li class="menu__tasks-element" v-for="(todayTask,index) in todayTasks" :class="{'menu__tasks-element--checked' : todayTask.checkedTask}" :key="index+ 'menu-item'"  >{{todayTask.text}}</li>
             </ul>
             <router-link @click.native="logoutComplete" class="menu__logout-btn btn btn--wide" tag="button" to="/login"> {{$t("logOut")}} </router-link>
         </div>
@@ -99,11 +99,8 @@ export default {
         top: 78px;
     }
     &__logout-btn {
-        position: absolute;
-        bottom: 20px;
-        width: 90%;
-        left: 0;
-        margin-left: 5%;
+       margin: 30px 0;
+       width: 100%;
     }
     &__user {
         font-size: 20px;

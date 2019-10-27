@@ -12,6 +12,8 @@ export default {
   methods: {
     closeMenu() {
       this.$store.commit('closeMenu');
+      const body = document.querySelector('body');
+      const html = document.querySelector('html')
       body.classList.remove('no-scroll');
       html.classList.remove('no-scroll');
     },
@@ -21,6 +23,7 @@ export default {
 
 <style lang="scss" scoped>
     .overlay {
+      overflow: auto;
         z-index: 1500;
         width: 100%;
         height: 100%;

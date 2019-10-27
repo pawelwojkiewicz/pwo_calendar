@@ -51,6 +51,7 @@ export default {
         background: transparent;
         border: none;
         width: 100%;
+        text-overflow: ellipsis;
         border-bottom: 1px solid transparent;
         padding: 10px 0;
         transition: .3s;
@@ -77,6 +78,10 @@ export default {
         font-size: 20px;
         cursor: pointer;
     }
+}
+
+.inp-cbx {
+  display: none;
 }
 
 @media screen and (min-width: 768px) {
