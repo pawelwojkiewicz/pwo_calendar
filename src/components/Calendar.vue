@@ -78,12 +78,10 @@ export default {
             'getAllTasks',
         ]),
         openModal(day) {
-            const body = document.querySelector('body');
-            const html = document.querySelector('html');
             this.$store.commit('openModal');
             this.$store.state.modalDay = day;
-            body.classList.add('no-scroll');
-            html.classList.add('no-scroll');
+            document.body.classList.add('no-scroll');
+            document.documentElement.classList.add('no-scroll');
         },
         calendarBox(day) {
             return `${day}-${this.moment.format('M-Y')}`;

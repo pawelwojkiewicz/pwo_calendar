@@ -28,12 +28,10 @@ export default {
     },
     watch: {
         nightMode: function (val) {
-              const body = document.querySelector('body')
             if(val) {
-              
-                body.classList.remove('nightmode--disabled')
+                document.body.classList.remove('nightmode--disabled')
             } else {
-                body.classList.add('nightmode--disabled')
+                document.body.classList.add('nightmode--disabled')
             }
     },
     },

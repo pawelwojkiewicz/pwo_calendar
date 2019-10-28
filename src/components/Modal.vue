@@ -1,28 +1,28 @@
 <template>
     <div class="modal" :class="{'modal--white' : !nightMode}">
-        <button @click="closeModal" class="modal__close" :class="{'modal__close--white' : !nightMode}" ><font-awesome-icon icon="times" /></button>
+        <button @click="closeModal" class="modal__close" :class="{'modal__close--white' : !nightMode}"><font-awesome-icon icon="times" /></button>
         <div class="modal__content">
             <span class="modal__title">
-                                  {{modalDay}} {{ moment | moment('MMMM YYYY') }}
-                        </span>
+                                          {{modalDay}} {{ moment | moment('MMMM YYYY') }}
+                                </span>
             <button @click="addTask" class="modal__add-task-btn">
-                        <font-awesome-icon icon="plus" class="modal__add-task-icon" />
-                        {{$t("addtask")}}
-                        </button>
+                                <font-awesome-icon icon="plus" class="modal__add-task-icon" />
+                                {{$t("addtask")}}
+                                </button>
             <TaskList v-show="ready"></TaskList>
             <div class="modal__spinner">
                 <Spinner v-show="!ready"></Spinner>
             </div>
             <Button class="modal__btn" @click.native="post">
-                    <span class="modal__btn-text" :class="{'modal__btn-text--hide' : success}">
-                        {{$t("saveNotes")}}
-                    </span>
-                    <span class="modal__btn-text" :class="{'modal__btn-text--success' : !success}">
-                        {{$t("savedNotes")}}
-                        <font-awesome-icon icon="check" class="modal__btn-icon" />
-                    </span>
-                    
-                    </Button>
+                            <span class="modal__btn-text" :class="{'modal__btn-text--hide' : success}">
+                                {{$t("saveNotes")}}
+                            </span>
+                            <span class="modal__btn-text" :class="{'modal__btn-text--success' : !success}">
+                                {{$t("savedNotes")}}
+                                <font-awesome-icon icon="check" class="modal__btn-icon" />
+                            </span>
+                            
+                            </Button>
         </div>
     </div>
 </template>
@@ -50,7 +50,7 @@ export default {
             'taskList',
             'ready',
             'success',
-            'nightMode'
+            'nightMode',
         ]),
     },
     methods: {
@@ -62,19 +62,17 @@ export default {
         ]),
         post() {
             this.$store.dispatch('post');
-            const body = document.querySelector('body');
-            const html = document.querySelector('html');
-            this.$store.commit('closeModal');
-            body.classList.remove('no-scroll');
-            html.classList.remove('no-scroll');
+            setTimeout(() => {
+                document.body.classList.remove('no-scroll');
+               document.documentElement.classList.remove('no-scroll');
+            }, 1000);
+            this.$store.state.badgeQuantity = this.taskList.length
         },
 
         closeModal() {
-            const body = document.querySelector('body');
-            const html = document.querySelector('html');
             this.$store.commit('closeModal');
-            body.classList.remove('no-scroll');
-            html.classList.remove('no-scroll');
+            document.body.classList.remove('no-scroll');
+           document.documentElement.classList.remove('no-scroll');
         },
     },
     created() {
@@ -105,15 +103,13 @@ export default {
         background: #ffffff;
     }
     &__close {
-        padding-right: 10px;
-        padding-top: 10px;
         background: transparent;
-        display: flex;
-        justify-content: flex-end;
         border: none;
         box-shadow: none;
         position: absolute;
-        width: 100%;
+        right: 10px;
+        top: 10px;
+        width: auto;
         color: #fff;
         font-size: 30px;
         cursor: pointer;

@@ -62,12 +62,12 @@ export default {
         border-radius: 0;
         &:focus {
             outline: none;
-            padding: 10px 0;
             border-bottom: 2px solid #21a5b6;
         }
         &::placeholder {
+          line-height: 27px;
             color: rgba(255, 255, 255, 0.425);
-            font-size: 18px;
+            font-size: 16px;
         }
         &--checked {
             text-decoration: line-through;
@@ -96,6 +96,8 @@ export default {
 }
 
 .cbx {
+  bottom: 0px;
+  position: relative;
   margin: auto;
   margin-right: 10px;
   -webkit-user-select: none;

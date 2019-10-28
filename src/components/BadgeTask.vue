@@ -20,8 +20,8 @@ export default {
 .badge {
     z-index: 3000;
     position: absolute;
-      top: 0;
-        right: 8px; 
+      top: -12px;
+        right: -6px; 
         left: auto;
     background: #bd5958;
     color: #fff;
@@ -37,9 +37,7 @@ export default {
         font-size: 12px;
     }
 }
-@supports (-webkit-overflow-scrolling: touch) {
-  
-}
+
 @media screen and (min-width: 1200px) {
     .badge {
       

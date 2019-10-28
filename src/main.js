@@ -26,7 +26,8 @@ Vue.use(VueMoment, { moment });
 Vue.use(Vue2TouchEvents);
 Vue.use(PasswordHash);
 
-
+const body = document.querySelector('body');
+const html = document.querySelector('html');
 
 
 

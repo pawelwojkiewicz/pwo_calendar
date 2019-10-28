@@ -248,11 +248,14 @@ export default new Vuex.Store({
     post({ state,commit ,dispatch}) {
       commit('buttonSuccess',false)
       Vue.http.patch(`https://pwo-calendar.firebaseio.com/users/${state.loggedUsername}/tasks/${state.modalId}.json`, { tasklist: state.taskList }).then((data) => {
-        dispatch('getAllTasks');
+      
+      dispatch('getAllTasks');
         dispatch('getTodayTasks');
        
     });
+   
     commit('buttonSuccess',true)
+
     setTimeout(() => {
       commit('buttonSuccess',false)
       commit('closeModal')
@@ -296,7 +299,7 @@ export default new Vuex.Store({
             state.todayTasks = data.tasklist;
             state.emptyTask = false;
             state.badgeQuantity = state.todayTasks.length
-            console.log(state.badgeQuantity)
+            console.log(state.todayTasks)
           }
         });
         state.ready = true;

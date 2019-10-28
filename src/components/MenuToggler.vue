@@ -1,6 +1,6 @@
 <template>
     <button @click="openToggler" :class="{'is-active' : menuToggler}" class="hamburger hamburger--collapse" type="button">
-        <BadgeTask></BadgeTask>
+        <BadgeTask v-if="badgeQuantity != ''"></BadgeTask>
           <span class="hamburger-box">
             <span class="hamburger-inner" :class="{'hamburger-inner--black' : !nightMode}"></span>
           </span>
@@ -19,21 +19,20 @@ export default {
     computed: {
         ...mapState([
             'menuToggler',
-            'nightMode'
+            'nightMode',
+            'badgeQuantity'
         ]),
     },
 
     methods: {
         openToggler() {
             this.$store.commit('openToggler');
-            const body = document.querySelector('body');
-            const html = document.querySelector('html');
             if (this.menuToggler === true) {
-                body.classList.add('no-scroll');
-                html.classList.add('no-scroll');
+                document.document.body.classList.add('no-scroll');
+                document.documentElement.classList.add('no-scroll');
             } else {
-                body.classList.remove('no-scroll');
-                html.classList.remove('no-scroll');
+                document.body.classList.remove('no-scroll');
+               document.documentElement.classList.remove('no-scroll');
             }
 
         }
@@ -45,8 +44,11 @@ export default {
 @import "node_modules/hamburgers/_sass/hamburgers/hamburgers.scss";
 .hamburger {
     z-index: 100;
+    padding: 0;
+    margin: 0;
+    top: 22px;
     position: absolute;
-    right: 0px;
+    right: 10px;
     left: auto;
     &:focus {
         border: none;
