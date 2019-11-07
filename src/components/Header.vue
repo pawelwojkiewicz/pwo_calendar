@@ -73,7 +73,6 @@ export default {
         display: flex;
         width: 70%;
         align-items: center;
-        max-width: 1200px;
         padding: 0;
     }
 }

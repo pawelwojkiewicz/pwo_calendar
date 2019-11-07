@@ -37,10 +37,4 @@ export default {
         font-size: 12px;
     }
 }
-
-@media screen and (min-width: 1200px) {
-    .badge {
-      
-    }
-}
 </style>

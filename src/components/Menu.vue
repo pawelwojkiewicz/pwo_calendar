@@ -97,6 +97,7 @@ export default {
     }
     &__lang-changer {
         top: 78px;
+        height: 38px;
     }
     &__logout-btn {
        margin: 30px 0;
@@ -140,6 +141,7 @@ export default {
             box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.3);
             padding: 6px 5px 6px 5px;
             font-size: 14px;
+            height: 20px;
             margin: 4px 0;
             background: #bd5959;
             border-radius: 3px;

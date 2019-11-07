@@ -89,6 +89,7 @@ export default {
         allTasks(day) {
             if (typeof this.calendarTasks[this.calendarBox(day)] !== 'undefined') {
                 return this.calendarTasks[this.calendarBox(day)].tasklist;
+                return console.log(this.calendarTasks[this.calendarBox(day)].tasklist)
             }
             return [];
         },
@@ -107,7 +108,7 @@ export default {
         display: flex;
         justify-content: space-between;
         padding: 0;
-        max-width: 1240px;
+        max-width: 1400px;
         margin: 0 auto;
         &-element {
             color: #21a5b6;
@@ -191,6 +192,7 @@ export default {
         padding-top: 20px;
         overflow: hidden;
         &-item {
+            min-height: 13px;
             color: #fff;
             background: #bd5959;
             margin: 1px 2px;
@@ -229,6 +231,7 @@ export default {
             font-size: 13px;
             padding-top: 26px;
             &-item {
+                min-height: 18px;
                 margin: 3px;
             }
         }

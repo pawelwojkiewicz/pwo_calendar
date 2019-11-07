@@ -10,7 +10,7 @@
                         </svg>
                     </span>
             </label>
-            <input type="text" class="task-list__input" placeholder="Wpisz notatkę..." v-model="taskItem.text" :class="{'task-list__input--checked' : taskItem.checkedTask}">
+            <input type="text" class="task-list__input" placeholder="Wpisz notatkę..." v-model="taskItem.text" :class="{'task-list__input--checked' : taskItem.checkedTask}" @keyup.enter="addTask">
             <font-awesome-icon icon="times" class="task-list__icon" @click="deleteTask(taskItem)" />
         </li>
     
@@ -32,6 +32,9 @@ export default {
         deleteTask(taskItem) {
             this.taskList.splice(this.taskList.indexOf(taskItem), 1);
         },
+         ...mapMutations([
+            'addTask'
+        ]),
     },
 };
 </script>

@@ -51,6 +51,23 @@ export default {
           top: 10px;
         }
     }
+    .vs--unsearchable .vs__search {
+      position: absolute;
+      opacity: 0;
+    }
+    .vs__open-indicator {
+      fill :#21a5b6!important;
+    }
+    .vs__dropdown-menu {
+      background: transparent!important;
+      width: 55px!important;
+      li {
+        background: transparent;
+      }
+    }
+    .vs__dropdown-toggle {
+      border: none!important;
+    }
     .vs__selected {
       color: inherit!important;
     }
