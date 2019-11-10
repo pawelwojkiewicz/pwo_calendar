@@ -33,51 +33,50 @@ import Button from '@/components/Button.vue';
 import Spinner from '@/components/Spinner.vue';
 
 export default {
-    name: 'Modal',
-    components: {
-        TaskList,
-        Button,
-        Spinner,
+  name: 'Modal',
+  components: {
+    TaskList,
+    Button,
+    Spinner,
+  },
+  computed: {
+    ...mapState([
+      'modalDay',
+      'moment',
+      'user',
+      'loggedUsername',
+      'modalId',
+      'taskList',
+      'ready',
+      'success',
+      'nightMode',
+    ]),
+  },
+  methods: {
+    ...mapMutations([
+      'addTask',
+    ]),
+    ...mapActions([
+      'get',
+    ]),
+    post() {
+      this.$store.dispatch('post');
+      setTimeout(() => {
+        document.body.classList.remove('no-scroll');
+        document.documentElement.classList.remove('no-scroll');
+      }, 1000);
     },
-    computed: {
-        ...mapState([
-            'modalDay',
-            'moment',
-            'user',
-            'loggedUsername',
-            'modalId',
-            'taskList',
-            'ready',
-            'success',
-            'nightMode',
-        ]),
-    },
-    methods: {
-        ...mapMutations([
-            'addTask',
-        ]),
-        ...mapActions([
-            'get',
-        ]),
-        post() {
-            this.$store.dispatch('post');
-            setTimeout(() => {
-                document.body.classList.remove('no-scroll');
-                document.documentElement.classList.remove('no-scroll');
-            }, 1000);
-           
-        },
 
-        closeModal() {
-            this.$store.commit('closeModal');
-            document.body.classList.remove('no-scroll');
-            document.documentElement.classList.remove('no-scroll');
-        },
+    closeModal() {
+      this.$store.commit('closeModal');
+      document.body.classList.remove('no-scroll');
+      document.documentElement.classList.remove('no-scroll');
     },
-    created() {
-        this.$store.state.modalId = `${this.modalDay}-${this.moment.format('M-Y')}`;
-        this.get();
-    },
+  },
+  created() {
+    this.$store.state.modalId = `${this.modalDay}-${this.moment.format('M-Y')}`;
+    this.get();
+  },
 
 };
 </script>
@@ -170,6 +169,7 @@ export default {
         padding: 0;
         font-size: 14px;
         cursor: pointer;
+        color: inherit;
     }
     &__add-task-icon {
         margin-right: 10px;

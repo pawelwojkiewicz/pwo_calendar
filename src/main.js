@@ -7,7 +7,7 @@ import VueMoment from 'vue-moment';
 import Vue2TouchEvents from 'vue2-touch-events';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faUser, faEnvelope, faLock, faChevronLeft, faChevronRight, faTimes, faPlus, faCheck, faSun, faMoon
+  faUser, faEnvelope, faLock, faChevronLeft, faChevronRight, faTimes, faPlus, faCheck, faSun, faMoon,
 } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -19,7 +19,7 @@ import i18n from './i18n';
 
 
 Vue.component('v-select', vSelect);
-library.add(faUser, faEnvelope, faLock, faGithub, faChevronLeft, faChevronRight, faTimes, faPlus, faCheck, faSun, faMoon );
+library.add(faUser, faEnvelope, faLock, faGithub, faChevronLeft, faChevronRight, faTimes, faPlus, faCheck, faSun, faMoon);
 
 Vue.use(VueResource);
 Vue.use(VueMoment, { moment });
@@ -28,7 +28,6 @@ Vue.use(PasswordHash);
 
 const body = document.querySelector('body');
 const html = document.querySelector('html');
-
 
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);

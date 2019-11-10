@@ -6,11 +6,12 @@
 
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
+
 export default {
   name: 'Button',
-   computed: {
+  computed: {
     ...mapState([
-      'success'
+      'success',
     ]),
   },
 

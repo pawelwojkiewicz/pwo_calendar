@@ -12,31 +12,30 @@ import { mapMutations, mapState, mapActions } from 'vuex';
 import BadgeTask from '@/components/BadgeTask.vue';
 
 export default {
-    name: 'MenuToggler',
-    components: {
-        BadgeTask
-    },
-    computed: {
-        ...mapState([
-            'menuToggler',
-            'nightMode',
-            'badgeQuantity'
-        ]),
-    },
+  name: 'MenuToggler',
+  components: {
+    BadgeTask,
+  },
+  computed: {
+    ...mapState([
+      'menuToggler',
+      'nightMode',
+      'badgeQuantity',
+    ]),
+  },
 
-    methods: {
-        openToggler() {
-            this.$store.commit('openToggler');
-            if (this.menuToggler === true) {
-               document.body.classList.add('no-scroll');
-                document.documentElement.classList.add('no-scroll');
-            } else {
-                document.body.classList.remove('no-scroll');
-               document.documentElement.classList.remove('no-scroll');
-            }
-
-        }
-    }
+  methods: {
+    openToggler() {
+      this.$store.commit('openToggler');
+      if (this.menuToggler === true) {
+        document.body.classList.add('no-scroll');
+        document.documentElement.classList.add('no-scroll');
+      } else {
+        document.body.classList.remove('no-scroll');
+        document.documentElement.classList.remove('no-scroll');
+      }
+    },
+  },
 };
 </script>
 
@@ -94,9 +93,16 @@ export default {
     }
 }
 
+@media screen and (min-width: 768px) {
+    .hamburger {
+        top: 0;
+    }
+}
+
 @media screen and (min-width: 1024px) {
     .hamburger {
         position: fixed;
+        top: 36px;
     }
 }
 </style>

@@ -6,14 +6,15 @@
 
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
+
 export default {
-    name: 'BadgeTask',
-      computed: {
-        ...mapState([
-            'badgeQuantity'
-        ]),
-    },
-}
+  name: 'BadgeTask',
+  computed: {
+    ...mapState([
+      'badgeQuantity',
+    ]),
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -21,7 +22,7 @@ export default {
     z-index: 3000;
     position: absolute;
       top: -12px;
-        right: -6px; 
+        right: -6px;
         left: auto;
     background: #bd5958;
     color: #fff;

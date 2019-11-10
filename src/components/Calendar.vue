@@ -5,7 +5,7 @@
                 {{$t(`${day}`)}}
             </li>
         </ul>
-    
+
         <ul class="calendar__month-list">
             <li class="calendar__month-list-element calendar__month-list-element--empty" :class="{'calendar__month-list-element--white' : !nightMode}" v-for="(day,index) in firstDays" :key="'siema'+ index"></li>
             <li class="calendar__month-list-element" @click="openModal(day)" v-for="(day,index) in moment.daysInMonth()" :key="index+'day'" :class="{'calendar__month-list-element--today': day === today && checkCurrentDay, 'calendar__month-list-element--today-white' : !nightMode &&  day === today && checkCurrentDay, 'calendar__month-list-element--white' : !nightMode}">
@@ -26,78 +26,78 @@ import moment from 'moment';
 import { watch } from 'fs';
 
 export default {
-    data() {
-        return {
-            days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-            defaultMoment: new moment(),
-        };
+  data() {
+    return {
+      days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
+      defaultMoment: new moment(),
+    };
+  },
+
+  computed: {
+    ...mapState([
+      'moment',
+      'calendarTasks',
+      'modalDay',
+      'borderColor',
+      'nightMode',
+    ]),
+
+    today() {
+      return this.defaultMoment.get('date');
+    },
+    currentMonth() {
+      return this.defaultMoment.format('M');
+    },
+    currentYear() {
+      return this.defaultMoment.format('YYYY');
+    },
+    currentDate() {
+      return this.moment.get('date');
+    },
+    firstDays() {
+      if (localStorage.getItem('lang') === 'en') {
+        const firstDay = moment(this.moment).subtract((this.currentDate), 'days');
+        return firstDay.weekday();
+      }
+      const firstDay = moment(this.moment).subtract((this.currentDate - 1), 'days');
+      return firstDay.weekday();
+    },
+    checkCurrentDay() {
+      if (this.currentMonth === this.moment.format('M') && this.currentYear === this.moment.format('YYYY')) {
+        return true;
+      }
     },
 
-    computed: {
-        ...mapState([
-            'moment',
-            'calendarTasks',
-            'modalDay',
-            'borderColor',
-            'nightMode'
-        ]),
+  },
+  methods: {
+    ...mapMutations([
+      'nextMonth',
+      'prevMonth',
+    ]),
+    ...mapActions([
+      'getAllTasks',
+    ]),
+    openModal(day) {
+      this.$store.commit('openModal');
+      this.$store.state.modalDay = day;
+      document.body.classList.add('no-scroll');
+      document.documentElement.classList.add('no-scroll');
+    },
+    calendarBox(day) {
+      return `${day}-${this.moment.format('M-Y')}`;
+    },
+    allTasks(day) {
+      if (typeof this.calendarTasks[this.calendarBox(day)] !== 'undefined') {
+        return this.calendarTasks[this.calendarBox(day)].tasklist;
+        return console.log(this.calendarTasks[this.calendarBox(day)].tasklist);
+      }
+      return [];
+    },
+  },
 
-        today() {
-            return this.defaultMoment.get('date');
-        },
-        currentMonth() {
-            return this.defaultMoment.format('M');
-        },
-        currentYear() {
-            return this.defaultMoment.format('YYYY');
-        },
-        currentDate() {
-            return this.moment.get('date');
-        },
-        firstDays() {
-            if (localStorage.getItem('lang') === 'en') {
-                const firstDay = moment(this.moment).subtract((this.currentDate), 'days');
-                return firstDay.weekday();
-            }
-            const firstDay = moment(this.moment).subtract((this.currentDate - 1), 'days');
-            return firstDay.weekday();
-        },
-        checkCurrentDay() {
-            if (this.currentMonth === this.moment.format('M') && this.currentYear === this.moment.format('YYYY')) {
-                return true;
-            }
-        },
-
-    },
-    methods: {
-        ...mapMutations([
-            'nextMonth',
-            'prevMonth',
-        ]),
-        ...mapActions([
-            'getAllTasks',
-        ]),
-        openModal(day) {
-            this.$store.commit('openModal');
-            this.$store.state.modalDay = day;
-            document.body.classList.add('no-scroll');
-            document.documentElement.classList.add('no-scroll');
-        },
-        calendarBox(day) {
-            return `${day}-${this.moment.format('M-Y')}`;
-        },
-        allTasks(day) {
-            if (typeof this.calendarTasks[this.calendarBox(day)] !== 'undefined') {
-                return this.calendarTasks[this.calendarBox(day)].tasklist;
-                return console.log(this.calendarTasks[this.calendarBox(day)].tasklist)
-            }
-            return [];
-        },
-    },
-    
-    created() {
-        this.getAllTasks();
-    },
+  created() {
+    this.getAllTasks();
+  },
 };
 </script>
 

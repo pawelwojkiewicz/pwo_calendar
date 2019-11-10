@@ -5,7 +5,7 @@
                 <Switcher></Switcher>
                 <LangChanger class="menu__lang-changer"></LangChanger>
             </div>
-    
+
             <span class="menu__user">{{$t("hello")}}, {{loggedUsername}}!</span>
             <span class="menu__date-day">{{defaultMoment.format('dddd,')}}</span>
             <span class="menu__date-month">{{defaultMoment.format('D MMMM')}}</span>
@@ -16,55 +16,60 @@
             </ul>
             <router-link @click.native="logoutComplete" class="menu__logout-btn btn btn--wide" tag="button" to="/login"> {{$t("logOut")}} </router-link>
         </div>
-    
+
     </div>
 </template>
 
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
+import moment from 'moment';
 import LangChanger from '@/components/LangChanger.vue';
 import Switcher from '@/components/Switcher.vue';
-import moment from 'moment';
 
 export default {
-    name: 'Menu',
-    components: {
-        LangChanger,
-        Switcher
-    },
-    data() {
-        return {
-            defaultMoment: new moment()
-        }
-    },
-    computed: {
-        ...mapState([
-            'menuToggler',
-            'users',
-            'loggedUsername',
-            'todayTasksId',
-            'todayTasks',
-            'emptyTask', 
-            'menuBackground'
-        ]),
+  name: 'Menu',
+  components: {
+    LangChanger,
+    Switcher,
+  },
+  data() {
+    return {
+      defaultMoment: new moment(),
+    };
+  },
+  computed: {
+    ...mapState([
+      'menuToggler',
+      'users',
+      'loggedUsername',
+      'todayTasksId',
+      'todayTasks',
+      'emptyTask',
+      'menuBackground',
+    ]),
 
+  },
+  methods: {
+    ...mapActions([
+      'logoutComplete',
+      'getTodayTasks',
+    ]),
+    logoutComplete() {
+      this.$store.commit('logoutComplete');
+      document.body.classList.remove('no-scroll');
+      document.documentElement.classList.remove('no-scroll');
     },
-    methods: {
-        ...mapActions([
-            'logoutComplete',
-            'getTodayTasks'
-        ]),
 
-    },
-     watch: {
+  },
+  watch: {
     '$i18n.locale': function (newLanguage) {
       this.defaultMoment.locale(newLanguage);
     },
   },
-   created() {
-        this.$store.state.todayTasksId = `${this.defaultMoment.format('D-M-Y')}`;
-        this.getTodayTasks()
-    },
+  created() {
+    this.$store.state.todayTasksId = `${this.defaultMoment.format('D-M-Y')}`;
+    this.getTodayTasks();
+  },
 };
 </script>
 
@@ -93,14 +98,15 @@ export default {
         padding: 10px;
     }
     &__content {
-        padding: 65px 15px 0px 15px
+        padding: 65px 15px 0px 15px;
+        height: 100%;
     }
     &__lang-changer {
         top: 78px;
         height: 38px;
     }
     &__logout-btn {
-       margin: 30px 0;
+       margin: 30px 0 100px 0;
        width: 100%;
     }
     &__user {
@@ -133,6 +139,7 @@ export default {
         list-style: none;
         padding: 0;
         margin: 0;
+        min-height: 100px;
         padding: 10px 0 0 0px;
         &-element {
             color: #fff;
@@ -178,11 +185,19 @@ export default {
         -moz-box-shadow: 1px 0px 8px 0px rgba(0, 0, 0, 0.75);
         box-shadow: 1px 0px 8px 0px rgba(0, 0, 0, 0.75);
         background: rgba(43, 43, 43, 0.87);
+        &__content {
+            height: auto;
+        }
+        &__tasks {
+            min-height: 340px;
+        }
         &__logout-btn {
             position: absolute;
             bottom: 20px;
             width: 90%;
             margin-left: 5%;
+            left: 0;
+            margin-bottom: 0;
         }
         &__tasks-element {
             margin: 8px 0;

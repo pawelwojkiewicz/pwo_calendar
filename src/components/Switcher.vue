@@ -11,31 +11,32 @@
 
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex';
+
 export default {
-    name: 'Switcher',
-    computed: {
-        ...mapState([
-            'nightMode'
-        ]),
+  name: 'Switcher',
+  computed: {
+    ...mapState([
+      'nightMode',
+    ]),
+  },
+  methods: {
+    ...mapActions([
+      'toggleNightMode',
+    ]),
+  },
+  mounted() {
+    this.toggleNightMode(localStorage.getItem('nightmode'));
+  },
+  watch: {
+    nightMode(val) {
+      if (val) {
+        document.body.classList.remove('nightmode--disabled');
+      } else {
+        document.body.classList.add('nightmode--disabled');
+      }
     },
-    methods: {
-        ...mapActions([
-            'toggleNightMode',
-        ]),
-    },
-    mounted() {
-        this.toggleNightMode(localStorage.getItem('nightmode'))
-    },
-    watch: {
-        nightMode: function (val) {
-            if(val) {
-                document.body.classList.remove('nightmode--disabled')
-            } else {
-                document.body.classList.add('nightmode--disabled')
-            }
-    },
-    },
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

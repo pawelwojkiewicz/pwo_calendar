@@ -36,7 +36,7 @@ export default {
   computed: {
     ...mapState([
       'moment',
-      'headerBackground'
+      'headerBackground',
     ]),
   },
   methods: {
@@ -81,6 +81,7 @@ export default {
     .header {
         &__container {
             width: 100%;
+            max-width: none;
             top: auto;
             left: auto;
             position: relative;

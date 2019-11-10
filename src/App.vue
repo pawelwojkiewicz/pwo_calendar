@@ -7,17 +7,18 @@
 </template>
 
 <script>
-import { mapGetters, mapState} from 'vuex';
+import { mapGetters, mapState } from 'vuex';
+
 export default {
   created() {
     this.$moment.locale(localStorage.getItem('lang') || 'pl');
   },
-   computed: {
-      ...mapState([
-            'background',
-            'color'
-        ]),
-    },
+  computed: {
+    ...mapState([
+      'background',
+      'color',
+    ]),
+  },
 };
 
 </script>
@@ -26,7 +27,7 @@ export default {
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
-@import "vue-select/src/scss/vue-select.scss";
+
 body {
   background: rgb(70, 70, 70);
   height: 100%;
@@ -70,7 +71,7 @@ body {
 input,
 button {
    font-family: 'Montserrat', sans-serif;
-   
+
 }
 
 

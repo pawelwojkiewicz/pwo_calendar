@@ -13,7 +13,7 @@ export default {
     closeMenu() {
       this.$store.commit('closeMenu');
       document.body.classList.remove('no-scroll');
-     document.documentElement.classList.remove('no-scroll');
+      document.documentElement.classList.remove('no-scroll');
     },
   },
 };
