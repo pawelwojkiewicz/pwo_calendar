@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "3860a0e40e06ae940165",
-    "url": "/pwo_calendar/css/app.b0fe5ccb.css"
+    "revision": "fc5e6e7f71be692315c0",
+    "url": "/pwo_calendar/css/app.3188b3fc.css"
   },
   {
-    "revision": "3860a0e40e06ae940165",
-    "url": "/pwo_calendar/js/app.8e6bfb9a.js"
+    "revision": "fc5e6e7f71be692315c0",
+    "url": "/pwo_calendar/js/app.127930e6.js"
   },
   {
     "revision": "996e93acd4234ef58ce2",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/pwo_calendar/img/logo.41be261b.png"
   },
   {
-    "revision": "6a7878a5d490fef41ad6568b1f5f121a",
+    "revision": "be7b03ed8daf5df54df98c15bc0fd886",
     "url": "/pwo_calendar/index.html"
   },
   {

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/pwo_calendar/precache-manifest.4312fa4c8c97bf5bbb8f75f2f3d87f23.js"
+  "/pwo_calendar/precache-manifest.c165598c8c2e15ab706cb9bc19db5cfb.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "pwo_calendar"});
